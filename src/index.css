@@ -1,0 +1,158 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italiana&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italiana&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+
+
+.italiana-regular {
+  font-family: "Italiana", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.raleway-regular {
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.playfair-display-sc-regular {
+  font-family: "Playfair Display SC", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: headingFont ;
+  src: url("/font/EtherealDemo-Regular.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family:mission;
+  src: url("/font/PlayfairDisplay-Italic.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* @font-face {
+  font-family: 'Gafiya';
+  src: url('/font/Gafiya-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+} */
+
+/* Add custom font classes */
+.italiana-font {
+  font-family: 'Italiana', serif;
+}
+
+.main-text {
+  font-family: 'Gafiya', Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: auto !important;
+}
+
+
+.primary-color {
+  color: #F5BC6D;
+}
+.secondary-color {
+  color: #232266;
+}
+.heading-font{
+   font-family:headingFont;
+   color: #F5BC6D;
+   font-weight: 600;
+}
+.paragraph-font{
+  font-family:sans-serif;
+}
+.primary-background-color {
+  background-color: #F5BC6D;
+}
+
+.sub-heading-font{
+   font-family:headingFont;
+   color: #F5BC6D;
+}
+.bg-primary-color {
+  background-color: #F5BC6D;
+}
+.bg-secondary-color {
+  background-color: #0E1C41;
+}
+
+
+.mission_font{
+  font-family: mission,sans-serif;
+  font-style: italic;
+
+}
+
+
+
+
+.glitter-text {
+  position: relative;
+  color: #fff;
+  background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glitter 3s ease-in-out infinite;
+}
+
+@keyframes glitter {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+
+html { scroll-behavior: smooth; }
+section { scroll-behavior: smooth; }
+
+@keyframes marquee-track {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-track {
+  animation: marquee-track 30s linear infinite;
+}
+
+
+html, body {
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

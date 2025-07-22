@@ -1,0 +1,28 @@
+@keyframes smart-fall {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(88px); /* match circle */
+  }
+}
+
+.animate-smart-fall {
+  animation: smart-fall 1.2s ease-out forwards;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.animate-wave {
+  animation: wave 2s ease-out;
+}
