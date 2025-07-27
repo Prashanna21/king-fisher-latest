@@ -1,33 +1,44 @@
 import { motion } from "framer-motion";
+import HeadingWithHighlight from "../HeadingWithHighlight";
 
 const imageData = [
   {
     id: 1,
     image: "/gallery/img1.jpg",
-    title: "Exclusive Listings",
+    title: "Bay Grove Residences",
+    location: "Dubai Islands, Dubai",
+    price: "from 1.9M AED",
     tag: ["Sea side", "Luxury", "For Living"],
   },
   {
     id: 2,
     image: "/gallery/img2.jpg",
-    title: "Sold Listings",
+    location: "Dubai Islands, Dubai",
+    price: "from 1.9M AED",
+    title: "Mira Villas Designed by Bentley Homes",
     tag: ["For resale", "For Couple", "For Living"],
   },
   {
     id: 3,
     image: "/gallery/img1.jpg",
-    tag: ["Sea side", "Luxury", "For Living"],
-    title: "Exclusive Listings",
+    location: "Dubai Islands, Dubai",
+    price: "from 1.9M AED",
+    tag: ["For resale", "For Couple", "For Living"],
+    title: "W Residences - JLT",
   },
   {
     id: 4,
     image: "/gallery/img2.jpg",
+    location: "Dubai Islands, Dubai",
+    price: "from 1.9M AED",
     tag: ["Sea side", "Luxury", "For Living"],
     title: "Sold Listings",
   },
   {
     id: 5,
     image: "/gallery/img1.jpg",
+    location: "Dubai Islands, Dubai",
+    price: "from 1.9M AED",
     tag: ["Sea side", "Luxury", "For Living"],
     title: "Exclusive Listings",
   },
@@ -35,6 +46,8 @@ const imageData = [
     id: 6,
     tag: ["Sea side", "Luxury", "For Living"],
     image: "/gallery/img2.jpg",
+    location: "Dubai Islands, Dubai",
+    price: "from 1.9M AED",
     title: "Sold Listings",
   },
 ];
@@ -92,21 +105,28 @@ const PropertySection = () => {
       viewport={{ once: true, amount: 0.2 }}
       variants={sectionVariants}
     >
-      <h2 className="text-4xl sm:text-6xl font-bold mb-4 text-center text-[#F6BC6D] heading-font">
+      {/* <h2 className="text-4xl sm:text-6xl font-bold mb-4 text-center text-[#F6BC6D] heading-font">
         <span className="text-primary">
-          Best Properties{" "}
+          Best Properties{""}
           <span className="text-white">
             Just <br /> Designed
           </span>{" "}
           for You
         </span>
-      </h2>
+      </h2> */}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-4 mt-10">
+      <HeadingWithHighlight text="Best Properties Just" highlights={["Just"]} />
+
+      <HeadingWithHighlight text="Designed for You" highlights={["Designed"]} />
+
+      <div className="grid grid-cols-1   sm:grid-cols-3 gap-4 md:gap-4 mt-10">
         {imageData.map((item, index) => (
           <motion.div
+            style={{
+              cursor: 'url("/HoverArrow.svg") 16 16, auto',
+            }}
             key={item.id + item.title}
-            className="relative group overflow-hidden h-[40vh] md:h-[50vh] lg:h-[80vh] rounded-2xl"
+            className="relative group overflow-hidden h-[40vh] md:h-[50vh] lg:h-[80vh] rounded-sm "
             custom={index}
             initial="hidden"
             whileInView="visible"
@@ -115,14 +135,17 @@ const PropertySection = () => {
             variants={itemVariants}
           >
             {/* Image */}
-            <img
-              src={item.image}
-              alt={item.title}
-              className="w-full h-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-110"
-            />
+            <div className="h-[82%] overflow-hidden w-full relative">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent transition duration-500 group-hover:from-[#203772]/70 group-hover:via-[#203772]/40" />
+            </div>
 
             {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent transition duration-500 group-hover:from-[#203772]/70 group-hover:via-[#203772]/40" />
 
             {/* Tags */}
             {item?.tag?.length > 0 && (
@@ -139,7 +162,7 @@ const PropertySection = () => {
             )}
 
             {/* Center Button */}
-            <div className="absolute inset-0 z-10 hidden group-hover:flex flex-col items-center justify-center text-white text-center px-4 transition duration-300">
+            {/* <div className="absolute inset-0 z-10 hidden group-hover:flex flex-col items-center justify-center text-white text-center px-4 transition duration-300">
               <motion.button
                 className="border border-[#F6BC6D] rounded-md px-6 py-2 text-sm uppercase tracking-wider hover:bg-[#F6BC6D] transition duration-300"
                 whileHover="hover"
@@ -147,10 +170,10 @@ const PropertySection = () => {
               >
                 View All
               </motion.button>
-            </div>
+            </div> */}
             {/* Bottom Bar */}
-            <motion.div
-              className="absolute hidden group-hover:flex  bottom-0 z-50 p-3 bg-white/20 w-full text-white"
+            {/* <motion.div
+              className="absolute block group-hover:flex  bottom-0 z-50 p-3 bg-white/20 w-full text-white bg-red-400"
               initial="initial"
               variants={cardDescriptionVariants}
             >
@@ -158,7 +181,18 @@ const PropertySection = () => {
               <p className="text-sm line-clamp-3">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </p>
-            </motion.div>
+            </motion.div> */}
+
+            {/* Bottom Text */}
+
+            <div className="text-primary font-regular mt-4 md:mt-4   ">
+              <h3 className="text-2xl  mb-2 text-[#F6BC6D]">{item.title}</h3>
+              <p className="text-md line-clamp-3">
+                <span className="text-gray-300"> {item.location}</span>
+                <br></br>
+                <span>{item.price}</span>
+              </p>
+            </div>
           </motion.div>
         ))}
       </div>

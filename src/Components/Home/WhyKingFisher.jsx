@@ -1,5 +1,6 @@
 import React from "react";
 import { Home, Wrench, Globe, Award, ShieldCheck, Leaf } from "lucide-react";
+import HeadingWithHighlight from "../HeadingWithHighlight";
 
 const features = [
   {
@@ -45,13 +46,10 @@ const Whykingfisher = () => {
         {/* Header */}
         <div className="relative w-full mx-auto flex justify-center items-center ">
           <h2 className="text-4xl sm:text-6xl font-bold mb-8 text-center text-[#F6BC6D]">
-            <span className="text-primary font-light">
-              Why Choose
-              <span className="text-white font-semibold">
-                {" "}
-                Kingfisher?
-              </span>{" "}
-            </span>
+            <HeadingWithHighlight
+              text="Why Choose Kingfisher?"
+              highlights={["Kingfisher?"]}
+            />
           </h2>
           {/* <img
             src="/Kingfisher.gif"
