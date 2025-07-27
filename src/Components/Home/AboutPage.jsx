@@ -94,8 +94,13 @@ const AboutPage = () => {
         />
       </div>
 
+      <div
+        className="absolute inset-0 bg-repeat bg-[length:auto] z-10"
+        style={{ backgroundImage: "url('/bg-texture.png')" }}
+      ></div>
+
       {/* Gradient Overlay */}
-      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#0E1C41] to-transparent z-0" />
+      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#0E1C41] to-transparent z-20" />
 
       <div className="relative z-10 flex flex-col md:flex-row gap-10 py-10 md:py-0 w-full min-h-screen px-5 mt-8">
         {/* Image Panel */}

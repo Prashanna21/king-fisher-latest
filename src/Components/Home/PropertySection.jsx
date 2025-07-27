@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import HeadingWithHighlight from "../HeadingWithHighlight";
+import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const imageData = [
   {
@@ -97,6 +100,8 @@ const cardDescriptionVariants = {
 };
 
 const PropertySection = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <motion.section
       className="w-full px-4 md:px-4 py-12 min-h-screen"
@@ -195,6 +200,50 @@ const PropertySection = () => {
             </div>
           </motion.div>
         ))}
+      </div>
+
+      <div className="flex justify-center items-center text-primary mt-6 mb-8">
+        <div className="flex justify-center items-center gap-2 cursor-pointer">
+          {/* <div className="text-xl">View All Properties</div>
+
+          <div className=" rounded-full h-10 w-10 flex items-center justify-center bg-[#F6BC6D]">
+            <ArrowRight
+              className={`transition-transform z-20 rotate-320 duration-300 text-[#1b1b3a]`}
+              size={20}
+            />
+          </div> */}
+
+          <Link to="properties/apartments" className="flex gap-3 items-center">
+            <div
+              className="flex items-center rounded-full cursor-pointer relative overflow-hidden"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <span
+                className={`font-medium z-10 pl-4 pr-2 py-2 transition-colors duration-300 ${
+                  isHovered ? "text-[#1b1b3a]" : "text-[#F6BC6D]"
+                }`}
+              >
+                View More
+              </span>
+              <div className="relative z-20 rounded-full h-10 w-10 flex items-center justify-center bg-[#F6BC6D]">
+                <ArrowRight
+                  className={`transition-transform rotate-320 duration-300 ${
+                    isHovered
+                      ? "translate-x-1 text-[#1b1b3a]"
+                      : "text-[#232266]"
+                  }`}
+                  size={20}
+                />
+              </div>
+              <div
+                className={`absolute top-0 bottom-0 right-0 bg-[#F6BC6D] rounded-full transition-all duration-300 ease-in-out ${
+                  isHovered ? "w-full" : "w-10 right-0"
+                }`}
+              />
+            </div>
+          </Link>
+        </div>
       </div>
     </motion.section>
   );
