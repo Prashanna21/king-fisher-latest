@@ -168,7 +168,7 @@ const ReviewCarousel = () => {
       resetOrStop();
       callback();
     },
-    [emblaApi],
+    [emblaApi]
   );
 
   return (
@@ -191,12 +191,14 @@ const ReviewCarousel = () => {
               {testimonials.map((data, idx) => (
                 <div
                   key={idx}
-                  className="embla__slide flex-[0_0_80%] sm:flex-[0_0_60%] lg:flex-[0_0_45%]">
+                  className="embla__slide flex-[0_0_80%] sm:flex-[0_0_60%] lg:flex-[0_0_45%]"
+                >
                   <div
                     className="relative  rounded-3xl p-10 min-h-[300px] sm:min-h-[300px] lg:min-h-[300px] transition-all duration-300 
                     border border-blue-500
                     before:absolute before:inset-0 before:bg-gradient-to-r before:from-blue-500/5 before:to-transparent before:rounded-3xl
-                    overflow-hidden transform-gpu">
+                    overflow-hidden transform-gpu"
+                  >
                     {/* Blue accent bar */}
                     {/* <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600"></div> */}
 
@@ -207,7 +209,8 @@ const ReviewCarousel = () => {
                         width="60"
                         height="60"
                         viewBox="0 0 24 24"
-                        aria-hidden="true">
+                        aria-hidden="true"
+                      >
                         <path
                           fill="currentColor"
                           d="M7.17 17c.51 0 .98-.29 1.2-.74l1.42-2.84c.14-.28.21-.58.21-.89V8c0-.55-.45-1-1-1H5c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h2l-1.03 2.06c-.45.89.2 1.94 1.2 1.94m10 0c.51 0 .98-.29 1.2-.74l1.42-2.84c.14-.28.21-.58.21-.89V8c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h2l-1.03 2.06c-.45.89.2 1.94 1.2 1.94"
@@ -232,7 +235,8 @@ const ReviewCarousel = () => {
                                 width="14"
                                 height="14"
                                 viewBox="0 0 24 24"
-                                fill="white">
+                                fill="white"
+                              >
                                 <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706z" />
                               </svg>
                             </div>
@@ -282,12 +286,14 @@ const ReviewCarousel = () => {
         <div className="flex justify-center gap-4 mt-12">
           <button
             onClick={() => onButtonAutoplayClick(scrollPrev)}
-            className="p-2 rounded-full bg-[#F6BC6D] shadow-md border border-blue-100 hover:bg-blue-50 transition-all hover:shadow-lg disabled:opacity-50 z-50 relative">
+            className="p-2 rounded-full bg-[#F6BC6D] shadow-md border border-blue-100 hover:bg-blue-50 transition-all hover:shadow-lg disabled:opacity-50 z-50 relative"
+          >
             <ChevronLeft className="w-7 h-7 text-blue-700" />
           </button>
           <button
             onClick={() => onButtonAutoplayClick(scrollNext)}
-            className="p-2 rounded-full bg-[#F6BC6D] shadow-md border border-blue-100 hover:bg-blue-50 transition-all hover:shadow-lg disabled:opacity-50 z-50 relative">
+            className="p-2 rounded-full bg-[#F6BC6D] shadow-md border border-blue-100 hover:bg-blue-50 transition-all hover:shadow-lg disabled:opacity-50 z-50 relative"
+          >
             <ChevronRight className="w-7 h-7 text-blue-700" />
           </button>
         </div>
