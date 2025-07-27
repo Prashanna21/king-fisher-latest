@@ -1,6 +1,7 @@
 import { useRef, useLayoutEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import HeadingWithHighlight from "../HeadingWithHighlight";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,13 +84,13 @@ export default function HorizontalSlider({ onScrollComplete }) {
     <div className="w-full overflow-hidden relative">
       {/* Heading */}
       <div className="relative w-full mx-auto ">
-        <h2 className="text-4xl sm:text-6xl font-bold mb-8 text-center text-[#F6BC6D] heading-font">
-          <span className="text-primary">We&apos;re focused on</span>
-          <span className="text-white block">Your Luxury Plans</span>
-        </h2>
+        <HeadingWithHighlight text="We're focused on" highlights={[]} />
+        <HeadingWithHighlight
+          text="Your Luxury Plans"
+          className="mb-8"
+          highlights={["Your", "Luxury", "Plans"]}
+        />
       </div>
-
-      
 
       {/* Scroll Section */}
       <section

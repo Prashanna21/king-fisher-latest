@@ -4,27 +4,27 @@ import HeadingWithHighlight from "../HeadingWithHighlight";
 const imageData = [
   {
     id: 1,
-    image: "/gallery/img1.jpg",
-    title: "Bay Grove Residences",
-    location: "Dubai Islands, Dubai",
-    price: "from 1.9M AED",
+    image: "/gallery/newimg1.jpg",
+    title: "Safa Gate",
+    location: "Sheikh Zayed Road, Dubai",
+    price: "From AED 2,258,000",
     tag: ["Sea side", "Luxury", "For Living"],
   },
   {
     id: 2,
-    image: "/gallery/img2.jpg",
-    location: "Dubai Islands, Dubai",
-    price: "from 1.9M AED",
-    title: "Mira Villas Designed by Bentley Homes",
+    image: "/gallery/newimg2.jpg",
+    location: "DAMAC Riverside Community, Dubai",
+    price: "From AED 1,503,000",
+    title: "DAMAC Riverside Views",
     tag: ["For resale", "For Couple", "For Living"],
   },
   {
     id: 3,
-    image: "/gallery/img1.jpg",
-    location: "Dubai Islands, Dubai",
-    price: "from 1.9M AED",
+    image: "/gallery/newimg3.jpg",
+    location: "Dubai Harbour, Dubai",
+    price: "From AED 7,284,000",
     tag: ["For resale", "For Couple", "For Living"],
-    title: "W Residences - JLT",
+    title: "DAMAC Bay 2 by Cavalli",
   },
   {
     id: 4,
@@ -135,14 +135,14 @@ const PropertySection = () => {
             variants={itemVariants}
           >
             {/* Image */}
-            <div className="h-[82%] overflow-hidden w-full relative">
+            <div className="h-[82%] overflow-hidden w-full relative rounded-sm ">
               <img
                 src={item.image}
                 alt={item.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent transition duration-500 group-hover:from-[#203772]/70 group-hover:via-[#203772]/40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/40 to-transparent transition duration-500 group-hover:from-[#203772]/70 group-hover:via-[#203772]/40" />
             </div>
 
             {/* Overlay */}
