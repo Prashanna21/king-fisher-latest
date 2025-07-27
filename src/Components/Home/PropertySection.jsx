@@ -120,6 +120,11 @@ const PropertySection = () => {
         </span>
       </h2> */}
 
+      <div
+        className="absolute inset-0 bg-repeat bg-[length:auto] z-0"
+        style={{ backgroundImage: "url('/bg-texture.png')" }}
+      ></div>
+
       <HeadingWithHighlight text="Best Properties Just" highlights={["Just"]} />
 
       <HeadingWithHighlight text="Designed for You" highlights={["Designed"]} />

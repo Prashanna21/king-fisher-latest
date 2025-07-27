@@ -94,8 +94,10 @@ const AboutPage = () => {
         />
       </div>
 
+      {/* texture layer */}
+
       <div
-        className="absolute inset-0 bg-repeat bg-[length:auto] z-10"
+        className="absolute inset-0 bg-repeat bg-[length:auto] z-0"
         style={{ backgroundImage: "url('/bg-texture.png')" }}
       ></div>
 
