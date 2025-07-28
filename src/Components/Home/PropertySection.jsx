@@ -104,7 +104,7 @@ const PropertySection = () => {
 
   return (
     <motion.section
-      className="w-full px-4 md:px-4 py-12 min-h-screen"
+      className="relative w-full px-4 md:px-4 py-12 min-h-screen"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}

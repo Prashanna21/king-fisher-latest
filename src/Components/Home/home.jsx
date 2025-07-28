@@ -30,7 +30,7 @@ const HeroSection = () => {
           animate="animate"
           variants={fadeUp}
         >
-          <h1 className="text-4xl text-primary  md:text-7xl font-normal text-[#F5BC6D] leading-tight mx-auto md:mx-0">
+          <h1 className="text-4xl  md:text-7xl font-normal text-[#F5BC6D] leading-tight mx-auto md:mx-0">
             Best Property Selling <br />
             <span className="font-bold text-white">Company in Dubai</span>{" "}
           </h1>

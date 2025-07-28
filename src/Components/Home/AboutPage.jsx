@@ -84,15 +84,7 @@ const AboutPage = () => {
       ref={sectionRef}
       className="relative text-white px-2 md:px-8 overflow-hidden min-h-screen "
     >
-      {/* Decorative Mandala */}
-      <div className="absolute top-1/4 right-0 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 opacity-20 pointer-events-none">
-        <img
-          src="/mandala/mandalaImage.png"
-          alt="Mandala"
-          className="w-full h-full object-contain"
-          loading="lazy"
-        />
-      </div>
+     
 
       {/* texture layer */}
 

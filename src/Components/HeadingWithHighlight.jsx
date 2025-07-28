@@ -16,7 +16,7 @@ const HeadingWithHighlight = ({
 
   // Default base styles
   const baseClass =
-    "text-primary font-light text-4xl sm:text-6xl text-center text-[#F6BC6D]";
+    " font-light text-4xl sm:text-6xl text-center text-[#F6BC6D]";
   const baseHighlightClass = "text-white font-semibold";
 
   return (
