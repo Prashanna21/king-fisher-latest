@@ -7,6 +7,7 @@ import ApartmentCard from "./ApartmentCard";
 // Sample slides data
 const ApartmentCards = [
   {
+    apartmentId: "luxury-city-apartment",
     title: "Luxury City Apartment",
     location: "Kathmandu, Nepal",
     price: "Rs. 45,000",
@@ -16,6 +17,7 @@ const ApartmentCards = [
     imageUrl: "/gallery/bg.jpg",
   },
   {
+    apartmentId: "modern-villa",
     title: "Modern Villa",
     location: "Kathmandu, Nepal",
     price: "Rs. 75,000",
@@ -25,6 +27,7 @@ const ApartmentCards = [
     imageUrl: "/gallery/bg2.jpg",
   },
   {
+    apartmentId: "cozy-studio-apartment",
     title: "Cozy Studio Apartment",
 
     location: "Kathmandu, Nepal",
@@ -147,6 +150,7 @@ const PropertyTypes = () => {
           {ApartmentCards.map((card, index) => (
             <ApartmentCard
               key={index}
+              apartmentId={card.apartmentId}
               title={card.title}
               location={card.location}
               price={card.price}

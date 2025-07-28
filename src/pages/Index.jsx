@@ -13,6 +13,7 @@ import OurServices from "./OurServices.jsx";
 import PropertyViewPage from "./PropertyViewPage.jsx";
 import PropertyApartments from "../Components/Property-Types/property-types.jsx";
 import PropertyDetails from "../Components/PropertyDetails/propertydetails.jsx";
+import Booking from "../Components/Booking/booking";
 
 import OurTeam from "./OurTeam.jsx";
 
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
       {
         path: "/properties/apartments/apartments",
         element: <PropertyDetails />,
+      },
+      {
+        path: "/properties/apartments/apartments/:apartmentId",
+        element: <PropertyDetails />,
+      },
+      {
+        path: "/booking/:apartmentId",
+        element: <Booking />,
       },
       {
         path: "/about",

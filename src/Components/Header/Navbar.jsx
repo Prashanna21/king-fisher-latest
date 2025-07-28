@@ -75,6 +75,8 @@ export default function Navbar() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [isInPropertySlider, setIsInPropertySlider] = useState(false);
 
   const toggleSidebar = () => setIsOpen((prev) => !prev);
   const closeSidebar = () => setIsOpen(false);
@@ -87,10 +89,42 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const propertySliderSection = document.querySelector('[data-section="property-slider"]');
+      
+      if (propertySliderSection) {
+        const rect = propertySliderSection.getBoundingClientRect();
+        const isInSection = rect.top <= 0 && rect.bottom >= 0;
+        
+        if (isInSection && !isInPropertySlider) {
+          setIsInPropertySlider(true);
+          setIsNavbarVisible(false);
+        } else if (!isInSection && isInPropertySlider) {
+          setIsInPropertySlider(false);
+          setIsNavbarVisible(true);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isInPropertySlider]);
+
   return (
-    <nav
+    <motion.nav
+      initial={{ y: 0 }}
+      animate={{ 
+        y: isNavbarVisible ? 0 : -100,
+        opacity: isNavbarVisible ? 1 : 0
+      }}
+      transition={{ 
+        duration: 0.5, 
+        ease: "easeInOut",
+        opacity: { duration: 0.3 }
+      }}
       role="navigation"
-      className={`mt-[20px] fixed top-0 left-1/2  transform -translate-x-1/2 bg-[#0E1C41] text-white z-60 w-11/12 md:max-w-7xl transition-all ${
+      className={`mt-[20px] fixed top-0 left-1/2 transform -translate-x-1/2 bg-[#0E1C41] text-white z-60 w-11/12 md:max-w-7xl ${
         hoveredIndex !== null ? "rounded-t-2xl" : "rounded-2xl"
       } ${activeSubMenu ? "shadow-lg " : ""}`}
       onMouseLeave={() => {
@@ -316,6 +350,6 @@ export default function Navbar() {
       </AnimatePresence>
       {/* Sidebar Panel */}
       {isOpen && <ToggleSidebar onClose={closeSidebar} />}
-    </nav>
+    </motion.nav>
   );
 }

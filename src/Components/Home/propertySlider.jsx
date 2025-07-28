@@ -81,7 +81,7 @@ export default function HorizontalSlider({ onScrollComplete }) {
   };
 
   return (
-    <div className="w-full overflow-hidden relative">
+    <div className="w-full overflow-hidden relative" data-section="property-slider">
       {/* Full background texture */}
       <div
         className="absolute inset-0 bg-repeat bg-[length:auto] z-0"

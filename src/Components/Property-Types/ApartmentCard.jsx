@@ -89,6 +89,7 @@
 
 import { Bed, Bath, MapPin, Ruler, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function ApartmentCard({
   title,
@@ -97,7 +98,14 @@ export default function ApartmentCard({
   bathrooms,
   size,
   imageUrl,
+  apartmentId,
 }) {
+  // Generate apartment ID from title if not provided
+  const getApartmentId = () => {
+    if (apartmentId) return apartmentId;
+    return title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  };
+
   return (
     <motion.div
      
@@ -165,10 +173,13 @@ export default function ApartmentCard({
         </div>
 
         {/* Button */}
-        <button className="mt-4 w-full rounded-xl bg-gradient-to-r from-[#F6BC6D] to-[#F8A145] text-[#0E1C41] font-semibold py-3 px-4 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] hover:shadow-lg hover:gap-3">
+        <Link 
+          to={`/properties/apartments/apartments/${getApartmentId()}`}
+          className="mt-4 w-full rounded-xl bg-gradient-to-r from-[#F6BC6D] to-[#F8A145] text-[#0E1C41] font-semibold py-3 px-4 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] hover:shadow-lg hover:gap-3"
+        >
           Learn More
           <ChevronRight className="w-4 h-4" />
-        </button>
+        </Link>
       </div>
     </motion.div>
   );

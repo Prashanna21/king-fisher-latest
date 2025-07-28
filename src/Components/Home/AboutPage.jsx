@@ -37,7 +37,6 @@ const AboutPage = () => {
   const contentRef = useRef(null);
   const scrollTween = useRef(null);
   const [isDesktop, setIsDesktop] = useState(false);
-  // const [isHovered, setIsHovered] = useState(false);
 
   // Detect screen size
   useEffect(() => {
@@ -84,6 +83,8 @@ const AboutPage = () => {
       ref={sectionRef}
       className="relative text-white px-2 md:px-8 overflow-hidden min-h-screen "
     >
+     
+
       {/* texture layer */}
 
       <div
@@ -144,7 +145,7 @@ const AboutPage = () => {
             variants={fadeFromBottom}
           >
             <motion.h2
-              className="font-light text-4xl sm:text-6xl text-center text-[#F6BC6D] mb-10"
+              className="text-4xl md:text-6xl font-extrabold text-center leading-snug mb-10 text-[#F6BC6D] heading-font"
               variants={fadeFromBottom}
               custom={0}
             >
