@@ -146,7 +146,7 @@ const AboutPage = () => {
             variants={fadeFromBottom}
           >
             <motion.h2
-              className="text-4xl md:text-6xl font-extrabold text-center leading-snug mb-10 text-[#F6BC6D] heading-font"
+              className="font-light text-4xl sm:text-6xl text-center text-[#F6BC6D] mb-10"
               variants={fadeFromBottom}
               custom={0}
             >

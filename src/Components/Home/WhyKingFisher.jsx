@@ -42,7 +42,12 @@ const Whykingfisher = () => {
       className=" text-white py-20 px-4 md:px-8 lg:px-16 relative"
       id="why-us"
     >
-      <div className="max-w-7xl mx-auto">
+      {/* Full background texture */}
+      <div
+        className="absolute inset-0 bg-repeat bg-[length:auto] z-0"
+        style={{ backgroundImage: "url('/bg-texture.png')" }}
+      ></div>
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="relative w-full mx-auto flex justify-center items-center ">
           <h2 className="text-4xl sm:text-6xl font-bold mb-8 text-center text-[#F6BC6D]">

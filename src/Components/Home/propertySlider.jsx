@@ -82,8 +82,13 @@ export default function HorizontalSlider({ onScrollComplete }) {
 
   return (
     <div className="w-full overflow-hidden relative">
+      {/* Full background texture */}
+      <div
+        className="absolute inset-0 bg-repeat bg-[length:auto] z-0"
+        style={{ backgroundImage: "url('/bg-texture.png')" }}
+      ></div>
       {/* Heading */}
-      <div className="relative w-full mx-auto ">
+      <div className="relative w-full mx-auto z-10 ">
         <HeadingWithHighlight text="We're focused on" highlights={[]} />
         <HeadingWithHighlight
           text="Your Luxury Plans"
@@ -91,11 +96,10 @@ export default function HorizontalSlider({ onScrollComplete }) {
           highlights={["Your", "Luxury", "Plans"]}
         />
       </div>
-
       {/* Scroll Section */}
       <section
         ref={containerRef}
-        className="relative w-full h-screen  z-[999999] bg-[#0E1A3B]"
+        className="relative w-full h-screen  z-10 bg-[#0E1A3B]"
       >
         <div ref={trackRef} className="flex gap-2 w-max h-screen relative">
           {images.map((item, index) => (
