@@ -109,9 +109,7 @@ const PropertySection = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section
-      className="relative w-full px-4 md:px-4 py-12 min-h-screen"
-    >
+    <section className="relative w-full px-4 md:px-4 py-12 min-h-screen">
       {/* <h2 className="text-4xl sm:text-6xl font-bold mb-4 text-center text-[#F6BC6D] heading-font">
         <span className="text-primary">
           Best Properties{""}
@@ -133,16 +131,22 @@ const PropertySection = () => {
         variants={sectionVariants}
         className="relative z-10"
       >
-        <HeadingWithHighlight text="Best Properties Just" highlights={["Just"]} />
-        <HeadingWithHighlight text="Designed for You" highlights={["Designed"]} />
-        <div className="grid grid-cols-1   sm:grid-cols-3 gap-4 md:gap-4 mt-10">
+        <HeadingWithHighlight
+          text="Best Properties Just"
+          highlights={["Just"]}
+        />
+        <HeadingWithHighlight
+          text="Designed for You"
+          highlights={["Designed"]}
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-4 mt-10">
           {imageData.map((item, index) => (
             <motion.div
+              key={item.id + item.title}
               style={{
                 cursor: 'url("/HoverArrow.svg") 16 16, auto',
               }}
-              key={item.id + item.title}
-              className="relative group overflow-hidden h-[40vh] md:h-[50vh] lg:h-[80vh] rounded-sm "
+              className="group cursor-pointer h-full"
               custom={index}
               initial="hidden"
               whileInView="visible"
@@ -150,66 +154,51 @@ const PropertySection = () => {
               viewport={{ once: true, amount: 0.3 }}
               variants={itemVariants}
             >
-              {/* Image */}
-              <div className="h-[82%] overflow-hidden w-full relative rounded-sm ">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/40 to-transparent transition duration-500 group-hover:from-[#203772]/70 group-hover:via-[#203772]/40" />
-
-              </div>
-
-              {/* Title and Details below the image */}
-              <div className="font-regular mt-4 md:mt-4">
-                <h3 className={`text-2xl mb-2 ${index === 2 ? 'text-white' : 'text-[#F6BC6D]'}`}
-                  style={index === 2 ? { color: 'white' } : {}}>{item.title}</h3>
-                <p className="text-md line-clamp-3">
-                  <span className="text-gray-300"> {item.location}</span>
-                  <br />
-                  <span>{item.price}</span>
-                </p>
-              </div>
-
-              {/* Overlay */}
-
-              {/* Tags */}
-              {item?.tag?.length > 0 && (
-                <div className="absolute top-5 left-5 flex gap-2 flex-wrap">
-                  {item.tag.map((tag, i) => (
-                    <div
-                      key={i + tag}
-                      className="bg-[#003560] rounded-full flex items-center px-4 py-1.5 text-sm text-[#F6BC6D]"
-                    >
-                      {tag}
-                    </div>
-                  ))}
+              {/* Card Container */}
+              <div className="flex flex-col h-full rounded-sm overflow-hidden transition-all duration-500 border-[#F6BC6D] bg-transparent">
+                {/* Image Section */}
+                <div className="relative overflow-hidden aspect-[4/3]">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500" />
                 </div>
-              )}
 
-              {/* Center Button */}
-              {/* <div className="absolute inset-0 z-10 hidden group-hover:flex flex-col items-center justify-center text-white text-center px-4 transition duration-300">
-                <motion.button
-                  className="border border-[#F6BC6D] rounded-md px-6 py-2 text-sm uppercase tracking-wider hover:bg-[#F6BC6D] transition duration-300"
-                  whileHover="hover"
-                  variants={buttonVariants}
-                >
-                  View All
-                </motion.button>
-              </div> */}
-              {/* Bottom Bar */}
-              {/* <motion.div
-                className="absolute block group-hover:flex  bottom-0 z-50 p-3 bg-white/20 w-full text-white bg-red-400"
-                initial="initial"
-                variants={cardDescriptionVariants}
-              >
-                <h3 className="text-2xl font-bold mb-1">{item.title}</h3>
-                <p className="text-sm line-clamp-3">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </p>
-              </motion.div> */}
+                {/* Content Section */}
+                <div className="flex flex-col flex-1 justify-between p-2">
+                  <div className="p-2">
+                    {/* Tags */}
+                    {item?.tag?.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {item.tag.map((tag, i) => (
+                          <span
+                            key={i + tag}
+                            className="px-3 py-1 bg-[#003560] text-[#F6BC6D] text-xs font-medium rounded-full border-1"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Title */}
+                    <h3
+                      className={`text-xl font-semibold mb-3 leading-tight transition-colors duration-200 line-clamp-1 text-[#F6BC6D]`}
+                    >
+                      {item.title}
+                    </h3>
+
+                    {/* Location & Price */}
+                    <p className="text-gray-300 text-sm leading-relaxed line-clamp-3">
+                      <span className="block">{item.location}</span>
+                      <span className="text-white">{item.price}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
