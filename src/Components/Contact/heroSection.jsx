@@ -27,8 +27,15 @@ const ContactHeroSection = () => {
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-col px-6 md:px-20 py-10">
-        <Link to="/" className="flex items-center text-gray-400 mb-6">
+      <div className="flex flex-col px-6 md:px-20 py-10 relative">
+        <div
+          className="absolute inset-0 bg-repeat bg-[length:auto] z-0"
+          style={{ backgroundImage: "url('/bg-texture.png')" }}
+        ></div>
+        <Link
+          to="/"
+          className="flex items-center text-gray-400 mb-6 relative z-10"
+        >
           <ArrowLeft size={18} className="mr-2" />
           Back
         </Link>

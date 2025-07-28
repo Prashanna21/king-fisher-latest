@@ -109,9 +109,7 @@ const PropertySection = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section
-      className="relative w-full px-4 md:px-4 py-12 min-h-screen"
-    >
+    <section className="relative w-full px-4 md:px-4 py-12 min-h-screen">
       {/* <h2 className="text-4xl sm:text-6xl font-bold mb-4 text-center text-[#F6BC6D] heading-font">
         <span className="text-primary">
           Best Properties{""}
@@ -133,9 +131,15 @@ const PropertySection = () => {
         variants={sectionVariants}
         className="relative z-10"
       >
-        <HeadingWithHighlight text="Best Properties Just" highlights={["Just"]} />
-        <HeadingWithHighlight text="Designed for You" highlights={["Designed"]} />
-        <div className="grid grid-cols-1   sm:grid-cols-3 gap-4 md:gap-4 mt-10">
+        <HeadingWithHighlight
+          text="Best Properties Just"
+          highlights={["Just"]}
+        />
+        <HeadingWithHighlight
+          text="Designed for You"
+          highlights={["Designed"]}
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-4 mt-10">
           {imageData.map((item, index) => (
             <Link to="/properties/apartments" key={item.id + item.title}>
               <motion.div

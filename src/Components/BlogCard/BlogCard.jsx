@@ -23,14 +23,34 @@ const BlogCard = ({ post }) => {
         onClick={handleReadArticle}
         role="button"
       >
-        <div className="flex flex-col h-full  rounded-sm overflow-hidden transition-all duration-500 border-[#F5BC6D] bg-transparent  ">
+        <div className="flex flex-col h-full  rounded-sm overflow-hidden transition-all duration-500 border-zinc-700 bg-transparent border-1 px-3 py-4  ">
+          {/* Title */}
+          <h3 className="text-xl font-semibold text-[#F6BC6D] mb-3 ml-1 leading-tight transition-colors duration-200 line-clamp-1">
+            {post.title}
+          </h3>
+
+          <div className="ml-2 flex justify-between mb-3">
+            <div>By Rojan G Mul</div>
+
+            <div className="flex items-center gap-1 text-xs text-gray-400">
+              <Calendar className="w-3.5 h-3.5" />
+              <span>
+                {new Date(post.updatedAt).toLocaleString("en-GB", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </span>
+            </div>
+          </div>
+
           {/* Image Section */}
           <div className="relative overflow-hidden aspect-[4/3]">
             <img
               src={post.image}
               alt={post.title || "Blog Image"}
               loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              className="w-full rounded-md h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500" />
 
@@ -49,7 +69,8 @@ const BlogCard = ({ post }) => {
           <div className="flex flex-col flex-1 justify-between p-2">
             <div className="p-2">
               {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-2">
+
+              {/* <div className="flex flex-wrap gap-2 mb-2">
                 {(post.tags || []).slice(0, 3).map((tag, idx) => (
                   <span
                     key={idx}
@@ -58,22 +79,17 @@ const BlogCard = ({ post }) => {
                     {tag || "Tag"}
                   </span>
                 ))}
-              </div>
-
-              {/* Title */}
-              <h3 className="text-xl font-semibold text-[#F6BC6D] mb-3 leading-tight transition-colors duration-200 line-clamp-1">
-                {post.title}
-              </h3>
+              </div> */}
 
               {/* Description */}
-              <p
+              {/* <p
                 className="text-gray-300 text-sm raleway-regular leading-relaxed line-clamp-3"
                 dangerouslySetInnerHTML={{ __html: post.description }}
-              ></p>
+              ></p> */}
             </div>
 
             {/* Footer */}
-            <div className="mt-2 ml-2  flex items-center justify-between mb-2">
+            {/* <div className="mt-2 ml-2  flex items-center justify-between mb-2">
               <div className="flex items-center gap-1 text-xs text-gray-400">
                 <Calendar className="w-3.5 h-3.5" />
                 <span>
@@ -84,7 +100,7 @@ const BlogCard = ({ post }) => {
                   })}
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </article>
