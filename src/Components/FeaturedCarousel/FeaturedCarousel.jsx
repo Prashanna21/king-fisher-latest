@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { formatTimeAgo } from "../../utils/formatTimeAgo";
+import HeadingWithHighlight from "../HeadingWithHighlight";
 
 const AUTO_SCROLL_INTERVAL = 4000;
 
@@ -44,10 +45,11 @@ const FeaturedCarousel = ({ posts = [] }) => {
 
   return (
     <div className="relative">
-      <div className="inline-flex items-center ">
-        <span className="glitter-text px-4 py-2 rounded-full text-lg font-extrabold tracking-wide absolute -top-4 left-2">
-          Major Highlights
-        </span>
+      <div className="   mb-12 ">
+        <HeadingWithHighlight
+          text="Major Highlights"
+          highlights={["Highlights"]}
+        />
       </div>
 
       <div className="rounded-3xl overflow-hidden shadow-sm border border-gray-100/50 mb-16">

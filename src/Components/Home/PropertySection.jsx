@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const imageData = [
   {
-    id: 1,
+    _id: 1,
     image: "/gallery/newimg1.jpg",
     title: "Safa Gate",
     location: "Sheikh Zayed Road, Dubai",
@@ -14,7 +14,7 @@ const imageData = [
     tag: ["Sea side", "Luxury", "For Living"],
   },
   {
-    id: 2,
+    _id: 2,
     image: "/gallery/newimg2.jpg",
     location: "DAMAC Riverside Community, Dubai",
     price: "From AED 1,503,000",
@@ -22,7 +22,7 @@ const imageData = [
     tag: ["For resale", "For Couple", "For Living"],
   },
   {
-    id: 3,
+    _id: 3,
     image: "/gallery/newimg3.jpg",
     location: "Dubai Harbour, Dubai",
     price: "From AED 7,284,000",
@@ -30,7 +30,7 @@ const imageData = [
     title: "DAMAC Bay 2 by Cavalli",
   },
   {
-    id: 4,
+    _id: 4,
     image: "/gallery/img2.jpg",
     location: "Dubai Islands, Dubai",
     price: "from 1.9M AED",
@@ -38,7 +38,7 @@ const imageData = [
     title: "Sold Listings",
   },
   {
-    id: 5,
+    _id: 5,
     image: "/gallery/img1.jpg",
     location: "Dubai Islands, Dubai",
     price: "from 1.9M AED",
@@ -46,7 +46,7 @@ const imageData = [
     title: "Exclusive Listings",
   },
   {
-    id: 6,
+    _id: 6,
     tag: ["Sea side", "Luxury", "For Living"],
     image: "/gallery/img2.jpg",
     location: "Dubai Islands, Dubai",
@@ -104,11 +104,7 @@ const PropertySection = () => {
 
   return (
     <motion.section
-<<<<<<< HEAD
-      className="w-full px-4 md:px-4 py-12 min-h-screen relative"
-=======
       className="relative w-full px-4 md:px-4 py-12 min-h-screen"
->>>>>>> c10e9c7324736e795cf1a35057247846f284566b
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
