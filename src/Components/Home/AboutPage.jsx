@@ -84,6 +84,11 @@ const AboutPage = () => {
       ref={sectionRef}
       className="relative text-white px-2 md:px-8 overflow-hidden min-h-screen "
     >
+<<<<<<< HEAD
+=======
+     
+
+>>>>>>> c10e9c7324736e795cf1a35057247846f284566b
       {/* texture layer */}
 
       <div
