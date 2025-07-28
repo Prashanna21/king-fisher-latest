@@ -104,7 +104,7 @@ const PropertySection = () => {
 
   return (
     <motion.section
-      className="w-full px-4 md:px-4 py-12 min-h-screen"
+      className="w-full px-4 md:px-4 py-12 min-h-screen relative"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
@@ -119,7 +119,6 @@ const PropertySection = () => {
           for You
         </span>
       </h2> */}
-
       <div
         className="absolute inset-0 bg-repeat bg-[length:auto] z-0"
         style={{ backgroundImage: "url('/bg-texture.png')" }}
