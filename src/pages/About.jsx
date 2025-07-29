@@ -9,6 +9,7 @@ import api from "../services/api";
 import PurposeSection from "../Components/AboutSection/PurposeSection";
 import HeadingWithHighlight from "../Components/HeadingWithHighlight";
 import { TextReveal } from "../Components/magicui/text-reveal";
+import OurTeamSection from "../Components/AboutSection/OurTeamSection";
 
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
@@ -50,7 +51,7 @@ export default function About() {
   };
 
   return (
-    <div className="bg-black -mt-3">
+    <div className=" -mt-3">
       <div className="relative h-screen w-full bg-[#0E1C41] text-white overflow-hidden">
         {/* Background Image with Overlay */}
         <div
@@ -106,26 +107,7 @@ export default function About() {
             </div>
           </section>
 
-          {/* Sticky Scroll Text Reveal Section */}
-          {/* <section ref={stickyRef} className="relative h-[200vh] z-10">
-            <div className="sticky top-0 h-screen flex items-center justify-center bg-[#0E1C41] px-4">
-              <motion.div style={{ opacity, y }}>
-                <TextReveal className="text-center text-white text-2xl max-w-[800px] mx-auto">
-                  At KingFisher Real Estate, our purpose is to redefine modern
-                  living through thoughtful design, tailored solutions, and
-                  sustainable development. We believe that every property should
-                  tell a story—one of vision, functionality, and lasting value.
-                </TextReveal>
-              </motion.div>
-            </div>
-          </section> */}
-          {/* 
-          <TextReveal>
-            {" "}
-            At KingFisher Real Estate, our purpose is to redefine modern living
-            through thoughtful design, tailored solutions, and sustainable
-            development.{" "}
-          </TextReveal> */}
+          <OurTeamSection />
         </section>
       </div>
     </div>
