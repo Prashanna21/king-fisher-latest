@@ -17,19 +17,19 @@ const navItems = [
         subMenu: [
           {
             label: "ABC Apartments",
-            href: "/properties/apartments/apartments",
+            href: "/details/luxury-city-apartment",
             description: "This is a description for ABC Apartments",
             img: "https://modal-cdn.com/navbar-use-case-fine-tuning.webp",
           },
           {
             label: "XYZ Apartments",
-            href: "/properties/apartments/apartments",
+            href: "/details/modern-villa",
             description: "This is a description for XYZ Apartments",
             img: "https://modal-cdn.com/navbar-use-case-job-queues.webp",
           },
           {
             label: "Luxury Apartments",
-            href: "/properties/apartments/apartments",
+            href: "/details/cozy-studio-apartment",
             description: "This is a description for Luxury Apartments",
             img: "https://modal-cdn.com/navbar-use-case-sandboxes.webp",
           },
@@ -41,19 +41,19 @@ const navItems = [
         subMenu: [
           {
             label: "Luxury Beach Villa",
-            href: "/package_detail/luxury-beach-villa",
+            href: "/details/luxury-beach-villa",
             description: "Exclusive beachfront villa with private pool and ocean views.",
             img: "/gallery/img3.jpg",
           },
           {
             label: "Modern Family Villa",
-            href: "/package_detail/modern-family-villa",
+            href: "/details/modern-family-villa",
             description: "Spacious family villa with garden and modern amenities.",
             img: "/gallery/img4.jpg",
           },
           {
             label: "Elegant Townhouse",
-            href: "/package_detail/elegant-townhouse",
+            href: "/details/elegant-townhouse",
             description: "Sophisticated townhouse with rooftop terrace and city views.",
             img: "/gallery/img5.jpg",
           },
@@ -65,19 +65,19 @@ const navItems = [
         subMenu: [
           {
             label: "Premium Villamate",
-            href: "/package_detail/premium-villamate",
+            href: "/details/premium-villamate",
             description: "Luxury villamate with shared amenities and community living.",
             img: "/gallery/img6.jpg",
           },
           {
             label: "Garden Villamate",
-            href: "/package_detail/garden-villamate",
+            href: "/details/garden-villamate",
             description: "Peaceful villamate surrounded by lush gardens and nature.",
             img: "/gallery/img7.jpg",
           },
           {
             label: "Modern Villamate",
-            href: "/package_detail/modern-villamate",
+            href: "/details/modern-villamate",
             description: "Contemporary villamate with smart home features and modern design.",
             img: "/gallery/img8.jpg",
           },

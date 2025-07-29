@@ -55,7 +55,7 @@ const Booking = () => {
 
         {/* Back Button */}
         <Link
-          to={`/package_detail/${apartmentId}`}
+          to={`/details/${apartmentId}`}
           className="text-blue-600 hover:text-blue-800 underline"
         >
           ← Back to Property
