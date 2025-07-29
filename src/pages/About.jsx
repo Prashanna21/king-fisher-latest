@@ -21,8 +21,6 @@ export default function About() {
   const divRef = useRef(null); // for inView
   const stickyRef = useRef(null); // for sticky scroll section
   const isVisible = useInView(divRef, { once: false });
-  const [teamMembers, setTeamMembers] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   // Scroll progress for sticky section
   const { scrollYProgress } = useScroll({
@@ -30,25 +28,6 @@ export default function About() {
     offset: ["start start", "end end"],
   });
   const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
-  useEffect(() => {
-    fetchTeamMembers();
-  }, [isVisible]);
-
-  const fetchTeamMembers = async () => {
-    try {
-      setLoading(true);
-      const response = await api.get("/team-members/active");
-      if (response.data.success) {
-        setTeamMembers(response.data.data);
-      }
-    } catch (error) {
-      console.error("Error fetching team members:", error);
-      showErrorToast("Failed to load team members. Please try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className=" -mt-3">

@@ -36,38 +36,48 @@ const Tabs = [
 // Sample slides data
 const ApartmentCards = [
   {
+    apartmentId: "68889adea2a437c3450d2fd6",
+    title: "The Horizon",
+    location: "Sobha Central, Dubai",
+    price: "From AED 460,000",
+    bedrooms: 2,
+    bathrooms: 2,
+    size: "1200 sqft",
+    imageUrl: "/gallery/img1.jpg",
+  },
+  {
+    apartmentId: "cozy-studio-apartment",
+    title: "Cozy Studio Apartment",
+    location: "Dubai Marina, Dubai",
+    price: "From AED 1,200,000",
+    bedrooms: 1,
+    bathrooms: 1,
+    size: "800 sqft",
+    imageUrl: "/gallery/img2.jpg",
+  },
+  {
     apartmentId: "luxury-city-apartment",
-    title: "Luxury City Apartment test",
-    location: "Kathmandu, Nepal",
-    price: "Rs. 45,000",
+    title: "Luxury City Apartment",
+    location: "Downtown Dubai, Dubai",
+    price: "From AED 2,500,000",
     bedrooms: 3,
     bathrooms: 2,
     size: "1350 sqft",
     imageUrl: "/gallery/bg.jpg",
   },
-  {
-    apartmentId: "modern-villa",
-    title: "Modern Villa",
-    location: "Kathmandu, Nepal",
-    price: "Rs. 75,000",
-    bedrooms: 4,
-    bathrooms: 3,
-    size: "2000 sqft",
-    imageUrl: "/gallery/bg2.jpg",
-  },
-  {
-    apartmentId: "cozy-studio-apartment",
-    title: "Cozy Studio Apartment",
-    location: "Kathmandu, Nepal",
-    price: "Rs. 30,000",
-    bedrooms: 1,
-    bathrooms: 1,
-    size: "800 sqft",
-    imageUrl: "/gallery/img1.jpg",
-  },
 ];
 
 const VillaCards = [
+  {
+    apartmentId: "luxury-palm-villa",
+    title: "Luxury Palm Villa",
+    location: "Palm Jumeirah, Dubai",
+    price: "From AED 4,500,000",
+    bedrooms: 4,
+    bathrooms: 4,
+    size: "3500 sqft",
+    imageUrl: "/gallery/img3.jpg",
+  },
   {
     apartmentId: "luxury-beach-villa",
     title: "Luxury Beach Villa",
@@ -76,7 +86,7 @@ const VillaCards = [
     bedrooms: 5,
     bathrooms: 4,
     size: "3500 sqft",
-    imageUrl: "/gallery/img3.jpg",
+    imageUrl: "/gallery/img4.jpg",
   },
   {
     apartmentId: "modern-family-villa",
@@ -86,16 +96,6 @@ const VillaCards = [
     bedrooms: 4,
     bathrooms: 3,
     size: "2800 sqft",
-    imageUrl: "/gallery/img4.jpg",
-  },
-  {
-    apartmentId: "elegant-townhouse",
-    title: "Elegant Townhouse",
-    location: "Downtown Dubai, Dubai",
-    price: "From AED 2,200,000",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: "2000 sqft",
     imageUrl: "/gallery/img5.jpg",
   },
 ];
@@ -288,10 +288,7 @@ const PropertyTypes = () => {
           {currentPropertyData.map((card, index) => (
             <PropertiesListingComp
               key={index}
-              link={`/details/${card.title
-                .toLowerCase()
-                .replace(/\s+/g, "-")
-                .replace(/[^a-z0-9-]/g, "")}`}
+              link={`/properties/${card.apartmentId}`}
               item={{ image: card.imageUrl, ...card }}
             />
           ))}

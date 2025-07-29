@@ -35,8 +35,8 @@ const router = createBrowserRouter([
         element: <AllPropertypage />,
       },
       {
-        path: "/properties/:id",
-        element: <PropertyViewPage/>,
+        path: "/properties/:apartmentId",
+        element: <PropertyDetails />,
       },
       {
         path: "/properties/apartments",
@@ -49,14 +49,6 @@ const router = createBrowserRouter([
       {
         path: "/properties/villamates",
         element: <PropertyApartments />,
-      },
-      {
-        path: "/properties/apartments/apartments",
-        element: <PropertyDetails />,
-      },
-      {
-        path: "/properties/apartments/apartments/:apartmentId",
-        element: <PropertyDetails />,
       },
       {
         path: "/details/:apartmentId",
