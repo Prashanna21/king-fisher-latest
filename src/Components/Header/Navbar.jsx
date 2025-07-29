@@ -42,19 +42,22 @@ const navItems = [
           {
             label: "Luxury Beach Villa",
             href: "/details/luxury-beach-villa",
-            description: "Exclusive beachfront villa with private pool and ocean views.",
+            description:
+              "Exclusive beachfront villa with private pool and ocean views.",
             img: "/gallery/img3.jpg",
           },
           {
             label: "Modern Family Villa",
             href: "/details/modern-family-villa",
-            description: "Spacious family villa with garden and modern amenities.",
+            description:
+              "Spacious family villa with garden and modern amenities.",
             img: "/gallery/img4.jpg",
           },
           {
             label: "Elegant Townhouse",
             href: "/details/elegant-townhouse",
-            description: "Sophisticated townhouse with rooftop terrace and city views.",
+            description:
+              "Sophisticated townhouse with rooftop terrace and city views.",
             img: "/gallery/img5.jpg",
           },
         ],
@@ -66,19 +69,22 @@ const navItems = [
           {
             label: "Premium Villamate",
             href: "/details/premium-villamate",
-            description: "Luxury villamate with shared amenities and community living.",
+            description:
+              "Luxury villamate with shared amenities and community living.",
             img: "/gallery/img6.jpg",
           },
           {
             label: "Garden Villamate",
             href: "/details/garden-villamate",
-            description: "Peaceful villamate surrounded by lush gardens and nature.",
+            description:
+              "Peaceful villamate surrounded by lush gardens and nature.",
             img: "/gallery/img7.jpg",
           },
           {
             label: "Modern Villamate",
             href: "/details/modern-villamate",
-            description: "Contemporary villamate with smart home features and modern design.",
+            description:
+              "Contemporary villamate with smart home features and modern design.",
             img: "/gallery/img8.jpg",
           },
         ],
@@ -113,12 +119,14 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const propertySliderSection = document.querySelector('[data-section="property-slider"]');
-      
+      const propertySliderSection = document.querySelector(
+        '[data-section="property-slider"]'
+      );
+
       if (propertySliderSection) {
         const rect = propertySliderSection.getBoundingClientRect();
         const isInSection = rect.top <= 0 && rect.bottom >= 0;
-        
+
         if (isInSection && !isInPropertySlider) {
           setIsInPropertySlider(true);
           setIsNavbarVisible(false);
@@ -129,21 +137,21 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isInPropertySlider]);
 
   return (
     <motion.nav
       initial={{ y: 0 }}
-      animate={{ 
+      animate={{
         y: isNavbarVisible ? 0 : -100,
-        opacity: isNavbarVisible ? 1 : 0
+        opacity: isNavbarVisible ? 1 : 0,
       }}
-      transition={{ 
-        duration: 0.5, 
+      transition={{
+        duration: 0.5,
         ease: "easeInOut",
-        opacity: { duration: 0.3 }
+        opacity: { duration: 0.3 },
       }}
       role="navigation"
       className={`mt-[20px] fixed top-0 left-1/2 transform -translate-x-1/2 bg-[#0E1C41] text-white z-60 w-11/12 md:max-w-7xl ${
@@ -375,5 +383,3 @@ export default function Navbar() {
     </motion.nav>
   );
 }
-
-

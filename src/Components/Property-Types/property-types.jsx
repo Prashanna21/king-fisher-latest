@@ -1,17 +1,143 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Pause,
+  ArrowRight,
+} from "lucide-react";
 import slides from "../../data/hero";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import ApartmentCard from "./ApartmentCard";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PropertiesListingComp from "../PropertiesListingComp";
-import api from "../../services/api";
+
+const Tabs = [
+  {
+    label: "ABC Apartments",
+    href: "/details/luxury-city-apartment",
+    description: "This is a description for ABC Apartments",
+    img: "https://modal-cdn.com/navbar-use-case-fine-tuning.webp",
+  },
+  {
+    label: "XYZ Apartments",
+    href: "/details/modern-villa",
+    description: "This is a description for XYZ Apartments",
+    img: "https://modal-cdn.com/navbar-use-case-job-queues.webp",
+  },
+  {
+    label: "Luxury Apartments",
+    href: "/details/cozy-studio-apartment",
+    description: "This is a description for Luxury Apartments",
+    img: "https://modal-cdn.com/navbar-use-case-sandboxes.webp",
+  },
+];
+
+// Sample slides data
+const ApartmentCards = [
+  {
+    apartmentId: "luxury-city-apartment",
+    title: "Luxury City Apartment test",
+    location: "Kathmandu, Nepal",
+    price: "Rs. 45,000",
+    bedrooms: 3,
+    bathrooms: 2,
+    size: "1350 sqft",
+    imageUrl: "/gallery/bg.jpg",
+  },
+  {
+    apartmentId: "modern-villa",
+    title: "Modern Villa",
+    location: "Kathmandu, Nepal",
+    price: "Rs. 75,000",
+    bedrooms: 4,
+    bathrooms: 3,
+    size: "2000 sqft",
+    imageUrl: "/gallery/bg2.jpg",
+  },
+  {
+    apartmentId: "cozy-studio-apartment",
+    title: "Cozy Studio Apartment",
+
+    location: "Kathmandu, Nepal",
+    price: "Rs. 30,000",
+    bedrooms: 1,
+    bathrooms: 1,
+    size: "800 sqft",
+    imageUrl: "/gallery/img1.jpg",
+  },
+];
+
+const VillaCards = [
+  {
+    apartmentId: "luxury-beach-villa",
+    title: "Luxury Beach Villa",
+    location: "Dubai Marina, Dubai",
+    price: "From AED 3,500,000",
+    bedrooms: 5,
+    bathrooms: 4,
+    size: "3500 sqft",
+    imageUrl: "/gallery/img3.jpg",
+  },
+  {
+    apartmentId: "modern-family-villa",
+    title: "Modern Family Villa",
+    location: "Palm Jumeirah, Dubai",
+    price: "From AED 2,800,000",
+    bedrooms: 4,
+    bathrooms: 3,
+    size: "2800 sqft",
+    imageUrl: "/gallery/img4.jpg",
+  },
+  {
+    apartmentId: "elegant-townhouse",
+    title: "Elegant Townhouse",
+    location: "Downtown Dubai, Dubai",
+    price: "From AED 2,200,000",
+    bedrooms: 3,
+    bathrooms: 2,
+    size: "2000 sqft",
+    imageUrl: "/gallery/img5.jpg",
+  },
+];
+
+const VillamateCards = [
+  {
+    apartmentId: "premium-villamate",
+    title: "Premium Villamate",
+    location: "Dubai Hills Estate, Dubai",
+    price: "From AED 1,800,000",
+    bedrooms: 3,
+    bathrooms: 2,
+    size: "1800 sqft",
+    imageUrl: "/gallery/img6.jpg",
+  },
+  {
+    apartmentId: "garden-villamate",
+    title: "Garden Villamate",
+    location: "Emirates Hills, Dubai",
+    price: "From AED 1,600,000",
+    bedrooms: 2,
+    bathrooms: 2,
+    size: "1500 sqft",
+    imageUrl: "/gallery/img7.jpg",
+  },
+  {
+    apartmentId: "modern-villamate",
+    title: "Modern Villamate",
+    location: "Jumeirah Golf Estates, Dubai",
+    price: "From AED 1,900,000",
+    bedrooms: 3,
+    bathrooms: 2,
+    size: "1700 sqft",
+    imageUrl: "/gallery/img8.jpg",
+  },
+];
 
 const PropertyTypes = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [properties, setProperties] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [activeSubMenu, setActiveSubMenu] = useState(null);
   const location = useLocation();
 
   // Fetch properties from backend based on route
@@ -213,43 +339,49 @@ const PropertyTypes = () => {
           ))}
         </div>
       </div>
-
-      {/* Property Cards */}
-      <div className="w-full max-w-7xl px-4 mx-auto mt-10">
-        {/* Debug Section - Remove this after fixing */}
-        <div className="mb-6 p-4 bg-yellow-100 border border-yellow-400 rounded-lg">
-          <h3 className="text-lg font-bold text-yellow-800 mb-2">🔍 Debug Info:</h3>
-          <p className="text-sm text-yellow-700">Route: {location.pathname}</p>
-          <p className="text-sm text-yellow-700">Loading: {loading ? "Yes" : "No"}</p>
-          <p className="text-sm text-yellow-700">Properties Count: {properties.length}</p>
-          <p className="text-sm text-yellow-700">API URL: {import.meta.env.VITE_API_URL}</p>
-          {properties.length > 0 && (
-            <div className="mt-2">
-              <p className="text-sm text-yellow-700 font-bold">First Property:</p>
-              <pre className="text-xs text-yellow-700 bg-yellow-50 p-2 rounded">
-                {JSON.stringify(properties[0], null, 2)}
-              </pre>
-            </div>
-          )}
-        </div>
-        
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#F6BC6D]"></div>
-          </div>
-        ) : properties.length === 0 ? (
-          <div className="text-center text-gray-500 py-20 text-xl font-semibold">No properties found.</div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
-            {properties.map((card, index) => (
-              <PropertiesListingComp
-                key={card._id || index}
-                link={`/properties/${card._id}`}
-                item={{ image: card.imageUrl, ...card }}
+      <div className=" w-full max-w-7xl px-4 mx-auto mt-10">
+        <div className="flex">
+          {Tabs.map((column, colIdx) => (
+            <Link
+              to={column.href}
+              key={colIdx}
+              onClick={() => setActiveSubMenu(column.label)}
+              className={`flex items-center justify-between px-3 py-2 text-sm font-medium text-white rounded-full border border-[#334b85] hover:bg-[#2d437c] transition-all duration-200 gap-3 ${
+                colIdx === 1 ? "w-full" : "w-fit"
+              }`}
+            >
+              <span>{column.label}</span>
+              <ArrowRight
+                size={16}
+                className="text-black bg-amber-300/50 rounded-full rotate-320 h-6 w-6"
               />
-            ))}
-          </div>
-        )}
+            </Link>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
+          {currentPropertyData.map((card, index) => (
+            // <ApartmentCard
+            //   key={index}
+            //   apartmentId={card.apartmentId}
+            //   title={card.title}
+            //   location={card.location}
+            //   price={card.price}
+            //   bedrooms={card.bedrooms}
+            //   bathrooms={card.bathrooms}
+            //   size={card.size}
+            //   imageUrl={card.imageUrl}
+            // />
+
+            <PropertiesListingComp
+              key={index}
+              link={`/details/${card.title
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^a-z0-9-]/g, "")}`}
+              item={{ image: card.imageUrl, ...card }}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

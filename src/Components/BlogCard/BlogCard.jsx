@@ -23,9 +23,9 @@ const BlogCard = ({ post }) => {
         onClick={handleReadArticle}
         role="button"
       >
-        <div className="flex flex-col h-full  rounded-sm overflow-hidden transition-all duration-500 border-zinc-700 bg-transparent border-1 px-3 py-4  ">
+        <div className="flex flex-col h-full  rounded-sm overflow-hidden transition-all duration-500 bg-[#0E1C41] border border-[#F6BC6D]/10 backdrop-blur-md px-5 ">
           {/* Title */}
-          <h3 className="text-xl font-semibold text-[#F6BC6D] mb-3 ml-1 leading-tight transition-colors duration-200 line-clamp-1">
+          <h3 className="text-xl font-semibold text-[#F6BC6D] mt-5 mb-3 ml-1 leading-tight transition-colors duration-200 line-clamp-1">
             {post.title}
           </h3>
 
