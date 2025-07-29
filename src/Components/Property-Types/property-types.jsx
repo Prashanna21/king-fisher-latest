@@ -12,27 +12,6 @@ import ApartmentCard from "./ApartmentCard";
 import { Link, useLocation } from "react-router-dom";
 import PropertiesListingComp from "../PropertiesListingComp";
 
-const Tabs = [
-  {
-    label: "ABC Apartments",
-    href: "/details/luxury-city-apartment",
-    description: "This is a description for ABC Apartments",
-    img: "https://modal-cdn.com/navbar-use-case-fine-tuning.webp",
-  },
-  {
-    label: "XYZ Apartments",
-    href: "/details/modern-villa",
-    description: "This is a description for XYZ Apartments",
-    img: "https://modal-cdn.com/navbar-use-case-job-queues.webp",
-  },
-  {
-    label: "Luxury Apartments",
-    href: "/details/cozy-studio-apartment",
-    description: "This is a description for Luxury Apartments",
-    img: "https://modal-cdn.com/navbar-use-case-sandboxes.webp",
-  },
-];
-
 // Sample slides data
 const ApartmentCards = [
   {
@@ -138,6 +117,8 @@ const PropertyTypes = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
   const location = useLocation();
+
+  const isActive = (href) => location.pathname.includes(href);
 
   // Get current property data based on route
   const getCurrentPropertyData = () => {
@@ -265,36 +246,24 @@ const PropertyTypes = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-7xl px-4 mx-auto mt-10">
-        <div className="flex">
-          {Tabs.map((column, colIdx) => (
-            <Link
-              to={column.href}
-              key={colIdx}
-              onClick={() => setActiveSubMenu(column.label)}
-              className={`flex items-center justify-between px-3 py-2 text-sm font-medium text-white rounded-full border border-[#334b85] hover:bg-[#2d437c] transition-all duration-200 gap-3 ${
-                colIdx === 1 ? "w-full" : "w-fit"
-              }`}
-            >
-              <span>{column.label}</span>
-              <ArrowRight
-                size={16}
-                className="text-black bg-amber-300/50 rounded-full rotate-320 h-6 w-6"
+      <div className="w-full">
+        <div
+          className="absolute inset-0 bg-repeat bg-[length:auto] z-0"
+          style={{ backgroundImage: "url('/bg-texture.png')" }}
+        />
+        <div className="w-full max-w-7xl px-4 mx-auto pt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pb-6">
+            {currentPropertyData.map((card, index) => (
+              <PropertiesListingComp
+                key={index}
+                link={`/details/${card.title
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")
+                  .replace(/[^a-z0-9-]/g, "")}`}
+                item={{ image: card.imageUrl, ...card }}
               />
-            </Link>
-          ))}
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
-          {currentPropertyData.map((card, index) => (
-            <PropertiesListingComp
-              key={index}
-              link={`/details/${card.title
-                .toLowerCase()
-                .replace(/\s+/g, "-")
-                .replace(/[^a-z0-9-]/g, "")}`}
-              item={{ image: card.imageUrl, ...card }}
-            />
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </>
