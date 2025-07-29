@@ -66,23 +66,25 @@ export default function About() {
         />
 
         {/* Foreground content */}
-        <section className="relative z-10 py-32">
+        <section className="relative z-10 py-20">
           <HeadingWithHighlight
             text="Know Who We Are"
             highlights={["We", "Are"]}
           />
 
           {/* Scroll-based Sticky Text Reveal Section */}
-          <section className="relative h-[200vh] z-10" ref={stickyRef}>
-            <div className="sticky top-0 h-screen flex items-center justify-center px-4">
-              <TextReveal
-                className="text-center text-white text-2xl max-w-[800px] mx-auto"
-                progress={progress}
-              >
-                At KingFisher Real Estate, our purpose is to redefine modern
-                living through thoughtful design, tailored solutions, and
-                sustainable development.
-              </TextReveal>
+          <section className="relative z-10" ref={stickyRef}>
+            <div className=" flex mx-auto items-center font-light justify-center px-4 text-3xl max-w-[800px] text-center pt-12 pb-32 ">
+              At KingFisher Real Estate, our purpose is to redefine modern
+              living through thoughtful design, tailored solutions, and
+              sustainable development.
+              <br></br> <br></br> We believe that every property should tell a
+              story—one of vision, functionality, and lasting value. Our team is
+              committed to creating spaces that not only meet our clients’
+              expectations but inspire a deeper connection to the environments
+              they live and work in. From innovative planning and bespoke
+              architecture to eco-conscious materials and energy-efficient
+              systems future.
             </div>
           </section>
 

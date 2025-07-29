@@ -247,24 +247,6 @@ const PropertyTypes = () => {
       </div>
 
       <div className="w-full max-w-7xl px-4 mx-auto mt-10">
-        <div className="flex">
-          {Tabs.map((column, colIdx) => (
-            <Link
-              to={column.href}
-              key={colIdx}
-              onClick={() => setActiveSubMenu(column.label)}
-              className={`flex items-center justify-between px-3 py-2 text-sm font-medium text-white rounded-full border border-[#334b85] hover:bg-[#2d437c] transition-all duration-200 gap-3 ${
-                colIdx === 1 ? "w-full" : "w-fit"
-              }`}
-            >
-              <span>{column.label}</span>
-              <ArrowRight
-                size={16}
-                className="text-black bg-amber-300/50 rounded-full rotate-320 h-6 w-6"
-              />
-            </Link>
-          ))}
-        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
           {currentPropertyData.map((card, index) => (
             <PropertiesListingComp
