@@ -15,38 +15,48 @@ import PropertiesListingComp from "../PropertiesListingComp";
 // Sample slides data
 const ApartmentCards = [
   {
+    apartmentId: "68889adea2a437c3450d2fd6",
+    title: "The Horizon",
+    location: "Sobha Central, Dubai",
+    price: "From AED 460,000",
+    bedrooms: 2,
+    bathrooms: 2,
+    size: "1200 sqft",
+    imageUrl: "/gallery/img1.jpg",
+  },
+  {
+    apartmentId: "cozy-studio-apartment",
+    title: "Cozy Studio Apartment",
+    location: "Dubai Marina, Dubai",
+    price: "From AED 1,200,000",
+    bedrooms: 1,
+    bathrooms: 1,
+    size: "800 sqft",
+    imageUrl: "/gallery/img2.jpg",
+  },
+  {
     apartmentId: "luxury-city-apartment",
-    title: "Luxury City Apartment test",
-    location: "Kathmandu, Nepal",
-    price: "Rs. 45,000",
+    title: "Luxury City Apartment",
+    location: "Downtown Dubai, Dubai",
+    price: "From AED 2,500,000",
     bedrooms: 3,
     bathrooms: 2,
     size: "1350 sqft",
     imageUrl: "/gallery/bg.jpg",
   },
-  {
-    apartmentId: "modern-villa",
-    title: "Modern Villa",
-    location: "Kathmandu, Nepal",
-    price: "Rs. 75,000",
-    bedrooms: 4,
-    bathrooms: 3,
-    size: "2000 sqft",
-    imageUrl: "/gallery/bg2.jpg",
-  },
-  {
-    apartmentId: "cozy-studio-apartment",
-    title: "Cozy Studio Apartment",
-    location: "Kathmandu, Nepal",
-    price: "Rs. 30,000",
-    bedrooms: 1,
-    bathrooms: 1,
-    size: "800 sqft",
-    imageUrl: "/gallery/img1.jpg",
-  },
 ];
 
 const VillaCards = [
+  {
+    apartmentId: "luxury-palm-villa",
+    title: "Luxury Palm Villa",
+    location: "Palm Jumeirah, Dubai",
+    price: "From AED 4,500,000",
+    bedrooms: 4,
+    bathrooms: 4,
+    size: "3500 sqft",
+    imageUrl: "/gallery/img3.jpg",
+  },
   {
     apartmentId: "luxury-beach-villa",
     title: "Luxury Beach Villa",
@@ -55,7 +65,7 @@ const VillaCards = [
     bedrooms: 5,
     bathrooms: 4,
     size: "3500 sqft",
-    imageUrl: "/gallery/img3.jpg",
+    imageUrl: "/gallery/img4.jpg",
   },
   {
     apartmentId: "modern-family-villa",
@@ -65,16 +75,6 @@ const VillaCards = [
     bedrooms: 4,
     bathrooms: 3,
     size: "2800 sqft",
-    imageUrl: "/gallery/img4.jpg",
-  },
-  {
-    apartmentId: "elegant-townhouse",
-    title: "Elegant Townhouse",
-    location: "Downtown Dubai, Dubai",
-    price: "From AED 2,200,000",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: "2000 sqft",
     imageUrl: "/gallery/img5.jpg",
   },
 ];
@@ -246,24 +246,33 @@ const PropertyTypes = () => {
         </div>
       </div>
 
-      <div className="w-full">
-        <div
-          className="absolute inset-0 bg-repeat bg-[length:auto] z-0"
-          style={{ backgroundImage: "url('/bg-texture.png')" }}
-        />
-        <div className="w-full max-w-7xl px-4 mx-auto pt-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pb-6">
-            {currentPropertyData.map((card, index) => (
-              <PropertiesListingComp
-                key={index}
-                link={`/details/${card.title
-                  .toLowerCase()
-                  .replace(/\s+/g, "-")
-                  .replace(/[^a-z0-9-]/g, "")}`}
-                item={{ image: card.imageUrl, ...card }}
+      <div className="w-full max-w-7xl px-4 mx-auto mt-10">
+        <div className="flex">
+          {Tabs.map((column, colIdx) => (
+            <Link
+              to={column.href}
+              key={colIdx}
+              onClick={() => setActiveSubMenu(column.label)}
+              className={`flex items-center justify-between px-3 py-2 text-sm font-medium text-white rounded-full border border-[#334b85] hover:bg-[#2d437c] transition-all duration-200 gap-3 ${
+                colIdx === 1 ? "w-full" : "w-fit"
+              }`}
+            >
+              <span>{column.label}</span>
+              <ArrowRight
+                size={16}
+                className="text-black bg-amber-300/50 rounded-full rotate-320 h-6 w-6"
               />
-            ))}
-          </div>
+            </Link>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
+          {currentPropertyData.map((card, index) => (
+            <PropertiesListingComp
+              key={index}
+              link={`/properties/${card.apartmentId}`}
+              item={{ image: card.imageUrl, ...card }}
+            />
+          ))}
         </div>
       </div>
     </>
