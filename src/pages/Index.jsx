@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         element: <PropertyDetails />,
       },
       {
-        path: "/package_detail/:apartmentId",
+        path: "/details/:apartmentId",
         element: <PropertyDetails />,
       },
       {

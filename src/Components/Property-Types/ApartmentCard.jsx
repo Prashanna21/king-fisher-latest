@@ -174,7 +174,7 @@ export default function ApartmentCard({
 
         {/* Button */}
         <Link 
-          to={`/package_detail/${getApartmentId()}`}
+          to={`/details/${getApartmentId()}`}
           className="mt-4 w-full rounded-xl bg-gradient-to-r from-[#F6BC6D] to-[#F8A145] text-[#0E1C41] font-semibold py-3 px-4 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] hover:shadow-lg hover:gap-3"
         >
           Learn More

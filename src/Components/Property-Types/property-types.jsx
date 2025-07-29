@@ -131,7 +131,7 @@ const PropertyTypes = () => {
     } else if (location.pathname.includes('/villamates')) {
       return "Exclusive Villamates";
     } else {
-      return "Premium Apartments";
+      return "Apartments";
     }
   };
 
