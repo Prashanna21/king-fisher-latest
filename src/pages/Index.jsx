@@ -15,8 +15,6 @@ import PropertyApartments from "../Components/Property-Types/property-types.jsx"
 import PropertyDetails from "../Components/PropertyDetails/propertydetails.jsx";
 import Booking from "../Components/Booking/booking";
 
-import OurTeam from "./OurTeam.jsx";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -73,14 +71,11 @@ const router = createBrowserRouter([
       {
         path: "/blog/:id",
         element: <BlogViewer />,
-      },{
-        path:"/services",
-        element:<OurServices/>
-      }
-      ,{
-        path:"/team",
-        element:<OurTeam/>
-      }
+      },
+      {
+        path: "/services",
+        element: <OurServices />,
+      },
     ],
   },
   {
