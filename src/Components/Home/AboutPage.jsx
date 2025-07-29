@@ -1,12 +1,7 @@
-import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Users, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CountUp from "react-countup";
-import { Link } from "react-router-dom";
-
-gsap.registerPlugin(ScrollTrigger);
+import { Link } from "react-router-dom"; // Added missing Link import
 
 // Framer Motion Animations
 const fadeFromTop = {
@@ -32,61 +27,11 @@ const fadeFromBottom = {
 };
 
 const AboutPage = () => {
-  const sectionRef = useRef(null);
-  const textContainerRef = useRef(null);
-  const contentRef = useRef(null);
-  const scrollTween = useRef(null);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  // Detect screen size
-  useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // Smooth ScrollTrigger Pin
-  useLayoutEffect(() => {
-    if (!isDesktop) return;
-
-    const ctx = gsap.context(() => {
-      const container = textContainerRef.current;
-      const content = contentRef.current;
-      if (!container || !content) return;
-
-      const scrollDistance = content.scrollHeight - container.offsetHeight;
-      if (scrollDistance <= 0) return;
-
-      scrollTween.current = gsap.to(content, {
-        y: -scrollDistance,
-        ease: "power1.inOut",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: `+=${scrollDistance}`,
-          pin: true,
-          scrub: 0.6,
-          anticipatePin: 1,
-        },
-      });
-    }, sectionRef);
-
-    return () => {
-      scrollTween.current?.kill();
-      ctx.revert();
-    };
-  }, [isDesktop]);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative text-white px-2 md:px-8 overflow-hidden min-h-screen "
-    >
-     
-
+    <section className="relative text-white px-2 md:px-8 overflow-hidden min-h-screen">
       {/* texture layer */}
-
       <div
         className="absolute inset-0 bg-repeat bg-[length:auto] z-0"
         style={{ backgroundImage: "url('/bg-texture.png')" }}
@@ -96,7 +41,7 @@ const AboutPage = () => {
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#0E1C41] to-transparent z-20" />
 
       <div className="relative z-10 flex flex-col md:flex-row gap-10 py-10 md:py-0 w-full min-h-screen px-5 mt-8">
-        {/* Image Panel */}
+        {/* Sticky Image Panel */}
         <motion.div
           className="hidden lg:w-1/2 lg:sticky lg:top-0 lg:h-screen lg:flex items-center justify-center"
           variants={fadeFromTop}
@@ -124,21 +69,17 @@ const AboutPage = () => {
                   Total Clients
                 </p>
                 <h4 className="text-lg font-bold text-zinc-400">
-                  <CountUp end={7000} duration={3} className="text-blue-800" />+
+                  7000+
                 </h4>
               </div>
             </div>
           </motion.div>
         </motion.div>
 
-        {/* Text Panel */}
-        <div
-          ref={textContainerRef}
-          className={`lg:w-1/2 ${isDesktop ? "lg:h-screen" : ""}`}
-        >
+        {/* Scrollable Text Panel */}
+        <div className="lg:w-1/2">
           <motion.div
-            ref={contentRef}
-            className=" md:px-6 py-10 md:py-20 flex flex-col items-center"
+            className="md:px-6 py-10 md:py-20 flex flex-col items-center"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -153,7 +94,7 @@ const AboutPage = () => {
             </motion.h2>
 
             <motion.p
-              className="text-gray-300 text-lg md:text-xl  px-2 md:px-10 mb-8 font-medium text-center"
+              className="text-gray-300 text-lg md:text-xl px-2 md:px-10 mb-8 font-medium text-center"
               variants={fadeFromBottom}
               custom={1}
             >
@@ -175,19 +116,35 @@ const AboutPage = () => {
               team that truly cares.
             </motion.p>
 
-            <Link to="/about" className="flex gap-3 items-center">
+            <Link 
+              to="/about" 
+              className="flex gap-3 items-center"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
               <div className="flex items-center rounded-full cursor-pointer relative overflow-hidden">
                 <span
-                  className={`font-medium z-10 pl-4 pr-2 py-2 transition-colors duration-300 hover:text-[#F6BC6D]`}
+                  className={`font-medium z-10 pl-4 pr-2 py-2 transition-colors duration-300 ${
+                    isHovered ? "text-[#1b1b3a]" : "text-[#F6BC6D]"
+                  }`}
                 >
                   Read More
                 </span>
                 <div className="relative z-20 rounded-full h-10 w-10 flex items-center justify-center bg-[#F6BC6D]">
                   <ArrowRight
-                    className={`transition-transform rotate-320 duration-300 ${"text-[#232266]"}`}
+                    className={`transition-transform rotate-320 duration-300 ${
+                      isHovered
+                        ? "translate-x-1 text-[#1b1b3a]"
+                        : "text-[#232266]"
+                    }`}
                     size={20}
                   />
                 </div>
+                <div
+                  className={`absolute top-0 bottom-0 right-0 bg-[#F6BC6D] rounded-full transition-all duration-300 ease-in-out ${
+                    isHovered ? "w-full" : "w-10"
+                  }`}
+                />
               </div>
             </Link>
           </motion.div>

@@ -12,6 +12,7 @@ const imageData = [
     location: "Sheikh Zayed Road, Dubai",
     price: "From AED 2,258,000",
     tag: ["Sea side", "Luxury", "For Living"],
+    apartmentId: "safa-gate-apartment",
   },
   {
     _id: 2,
@@ -20,6 +21,7 @@ const imageData = [
     price: "From AED 1,503,000",
     title: "DAMAC Riverside Views",
     tag: ["For resale", "For Couple", "For Living"],
+    apartmentId: "damac-riverside-views",
   },
   {
     _id: 3,
@@ -28,6 +30,7 @@ const imageData = [
     price: "From AED 7,284,000",
     tag: ["For resale", "For Couple", "For Living"],
     title: "DAMAC Bay 2 by Cavalli",
+    apartmentId: "damac-bay-cavalli",
   },
   {
     _id: 4,
@@ -36,6 +39,7 @@ const imageData = [
     price: "from 1.9M AED",
     tag: ["Sea side", "Luxury", "For Living"],
     title: "Sold Listings",
+    apartmentId: "sold-listings-dubai",
   },
   {
     _id: 5,
@@ -44,6 +48,7 @@ const imageData = [
     price: "from 1.9M AED",
     tag: ["Sea side", "Luxury", "For Living"],
     title: "Exclusive Listings",
+    apartmentId: "exclusive-listings-dubai",
   },
   {
     _id: 6,
@@ -52,6 +57,7 @@ const imageData = [
     location: "Dubai Islands, Dubai",
     price: "from 1.9M AED",
     title: "Sold Listings",
+    apartmentId: "sold-listings-premium",
   },
 ];
 
@@ -81,14 +87,6 @@ const buttonVariants = {
   },
 };
 
-// const bottomBarVariants = {
-//   initial: { opacity: 0, y: 40 },
-//   hover: {
-//     opacity: 1,
-//     y: 0,
-//     transition: { duration: 0.5, ease: "easeOut" },
-//   },
-// };
 
 const cardDescriptionVariants = {
   initial: { opacity: 0, y: 40 },
@@ -141,7 +139,7 @@ const PropertySection = () => {
         />
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-4 mt-10">
           {imageData.map((item, index) => (
-            <Link to="/properties/apartments" key={item.id + item.title}>
+            <Link to={`/package_detail/${item.apartmentId}`} key={item.id + item.title}>
               <motion.div
                 style={{
                   cursor: 'url("/HoverArrow.svg") 16 16, auto',

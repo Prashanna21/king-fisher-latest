@@ -4,15 +4,10 @@ const damacLogo = "https://images.ctfassets.net/zoq5l15g49wj/7DGi2D8VGvN2aV02ir8
 
 const PartnersMarquee = () => {
   return (
-    <div className="relative overflow-hidden w-full py-16 my-16 rounded-2xl">
-      {/* Background texture */}
-      <div
-        className="absolute inset-0 bg-repeat bg-[length:auto] z-0 opacity-20"
-        style={{ backgroundImage: "url('/bg-texture.png')" }}
-      ></div>
+    <section className="relative overflow-hidden w-full py-22  rounded-2xl">
       
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0E1C41] via-transparent to-[#0E1C41] z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0E1C41] via-transparent to-[#0E1C41] z-0"  style={{ backgroundImage: "url('/bg-texture.png')" }}></div>
       
       <div className="relative z-10">
         <div className="flex justify-center items-center mb-12">
@@ -56,7 +51,7 @@ const PartnersMarquee = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -58,7 +58,7 @@ const HeroSection = () => {
             ].map((item, idx) => (
               <motion.div
                 key={idx}
-                className="flex items-center md:justify-center border border-white/10 gap-4 w-full md:w-[280px] bg-white/5 p-8 rounded-xl shadow-sm backdrop-blur-sm"
+                className="flex items-center md:justify-center border border-white/10 gap-4 w-full md:w-[280px] bg-white/5 p-8 rounded-xl shadow-sm "
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + idx * 0.2, duration: 0.6 }}

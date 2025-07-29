@@ -40,16 +40,22 @@ const navItems = [
         href: "/properties/villas",
         subMenu: [
           {
-            label: "ABC Villas",
-            href: "/properties/villas/abc1",
-            description: "This is a description for ABC Villas",
-            img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+            label: "Luxury Beach Villa",
+            href: "/package_detail/luxury-beach-villa",
+            description: "Exclusive beachfront villa with private pool and ocean views.",
+            img: "/gallery/img3.jpg",
           },
           {
-            label: "XYZ Villas",
-            href: "/properties/villas/abc2",
-            description: "This is a description for XYZ Villas",
-            img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+            label: "Modern Family Villa",
+            href: "/package_detail/modern-family-villa",
+            description: "Spacious family villa with garden and modern amenities.",
+            img: "/gallery/img4.jpg",
+          },
+          {
+            label: "Elegant Townhouse",
+            href: "/package_detail/elegant-townhouse",
+            description: "Sophisticated townhouse with rooftop terrace and city views.",
+            img: "/gallery/img5.jpg",
           },
         ],
       },
@@ -57,8 +63,24 @@ const navItems = [
         label: "Villamates",
         href: "/properties/villamates",
         subMenu: [
-          { label: "ABC Villamates", href: "/properties/villamates/abc1" },
-          { label: "XYZ Villamates", href: "/properties/villamates/abc2" },
+          {
+            label: "Premium Villamate",
+            href: "/package_detail/premium-villamate",
+            description: "Luxury villamate with shared amenities and community living.",
+            img: "/gallery/img6.jpg",
+          },
+          {
+            label: "Garden Villamate",
+            href: "/package_detail/garden-villamate",
+            description: "Peaceful villamate surrounded by lush gardens and nature.",
+            img: "/gallery/img7.jpg",
+          },
+          {
+            label: "Modern Villamate",
+            href: "/package_detail/modern-villamate",
+            description: "Contemporary villamate with smart home features and modern design.",
+            img: "/gallery/img8.jpg",
+          },
         ],
       },
     ],
@@ -353,3 +375,5 @@ export default function Navbar() {
     </motion.nav>
   );
 }
+
+

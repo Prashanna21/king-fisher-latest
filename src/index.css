@@ -143,8 +143,39 @@ section { scroll-behavior: smooth; }
 
 html, body {
   overflow-x: hidden;
+  overflow-y: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
+}
+
+/* Ensure sticky positioning works */
+.sticky-container {
+  position: sticky !important;
+  top: 0 !important;
+  height: 100vh !important;
+  overflow: visible !important;
+  z-index: 10 !important;
+}
+
+/* Override any parent overflow issues */
+.sticky-container * {
+  overflow: visible !important;
+}
+
+/* Ensure main element doesn't interfere with sticky */
+main {
+  overflow: visible !important;
+}
+
+/* Force sticky to work */
+.sticky-container {
+  position: sticky !important;
+  top: 0 !important;
+  height: 100vh !important;
+  overflow: visible !important;
+  z-index: 10 !important;
+  will-change: transform !important;
+  transform: translateZ(0) !important;
 }
 
 body::-webkit-scrollbar {

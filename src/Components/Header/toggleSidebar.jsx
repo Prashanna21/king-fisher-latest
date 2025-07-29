@@ -19,9 +19,9 @@ export default function ToggleSidebar({ onClose }) {
           subMenu: [
             {
               label: "abc apartments",
-              href: "/properties/apartments/apartments",
+              href: "/package_detail/luxury-city-apartment",
             },
-            { label: "abc apartments", href: "/properties/apartments/villas" },
+            { label: "abc apartments", href: "/package_detail/modern-villa" },
           ],
         },
         {

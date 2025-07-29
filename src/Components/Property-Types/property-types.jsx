@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import slides from "../../data/hero";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import ApartmentCard from "./ApartmentCard";
+import { useLocation } from "react-router-dom";
 
 // Sample slides data
 const ApartmentCards = [
@@ -39,9 +40,100 @@ const ApartmentCards = [
   },
 ];
 
+const VillaCards = [
+  {
+    apartmentId: "luxury-beach-villa",
+    title: "Luxury Beach Villa",
+    location: "Dubai Marina, Dubai",
+    price: "From AED 3,500,000",
+    bedrooms: 5,
+    bathrooms: 4,
+    size: "3500 sqft",
+    imageUrl: "/gallery/img3.jpg",
+  },
+  {
+    apartmentId: "modern-family-villa",
+    title: "Modern Family Villa",
+    location: "Palm Jumeirah, Dubai",
+    price: "From AED 2,800,000",
+    bedrooms: 4,
+    bathrooms: 3,
+    size: "2800 sqft",
+    imageUrl: "/gallery/img4.jpg",
+  },
+  {
+    apartmentId: "elegant-townhouse",
+    title: "Elegant Townhouse",
+    location: "Downtown Dubai, Dubai",
+    price: "From AED 2,200,000",
+    bedrooms: 3,
+    bathrooms: 2,
+    size: "2000 sqft",
+    imageUrl: "/gallery/img5.jpg",
+  },
+];
+
+const VillamateCards = [
+  {
+    apartmentId: "premium-villamate",
+    title: "Premium Villamate",
+    location: "Dubai Hills Estate, Dubai",
+    price: "From AED 1,800,000",
+    bedrooms: 3,
+    bathrooms: 2,
+    size: "1800 sqft",
+    imageUrl: "/gallery/img6.jpg",
+  },
+  {
+    apartmentId: "garden-villamate",
+    title: "Garden Villamate",
+    location: "Emirates Hills, Dubai",
+    price: "From AED 1,600,000",
+    bedrooms: 2,
+    bathrooms: 2,
+    size: "1500 sqft",
+    imageUrl: "/gallery/img7.jpg",
+  },
+  {
+    apartmentId: "modern-villamate",
+    title: "Modern Villamate",
+    location: "Jumeirah Golf Estates, Dubai",
+    price: "From AED 1,900,000",
+    bedrooms: 3,
+    bathrooms: 2,
+    size: "1700 sqft",
+    imageUrl: "/gallery/img8.jpg",
+  },
+];
+
 const PropertyTypes = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const location = useLocation();
+
+  // Determine which property data to use based on current route
+  const getPropertyData = () => {
+    if (location.pathname.includes('/villas')) {
+      return VillaCards;
+    } else if (location.pathname.includes('/villamates')) {
+      return VillamateCards;
+    } else {
+      return ApartmentCards; // Default to apartments
+    }
+  };
+
+  const currentPropertyData = getPropertyData();
+
+  // Get page title based on route
+  const getPageTitle = () => {
+    if (location.pathname.includes('/villas')) {
+      return "Luxury Villas";
+    } else if (location.pathname.includes('/villamates')) {
+      return "Exclusive Villamates";
+    } else {
+      return "Premium Apartments";
+    }
+  };
 
   // Auto-play logic
   useEffect(() => {
@@ -95,7 +187,7 @@ const PropertyTypes = () => {
           <div className="max-w-4xl mx-auto text-white">
             <div className="animate-slide-up">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-playfair font-bold mb-6 leading-tight">
-                Apartments & Villas
+                {getPageTitle()}
               </h1>
               <p className="text-xl md:text-2xl mb-10 text-gray-200 max-w-3xl font-light leading-relaxed">
                 <Breadcrumbs />
@@ -147,7 +239,7 @@ const PropertyTypes = () => {
       </div>
       <div className=" w-full max-w-7xl px-4 mx-auto mt-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {ApartmentCards.map((card, index) => (
+          {currentPropertyData.map((card, index) => (
             <ApartmentCard
               key={index}
               apartmentId={card.apartmentId}

@@ -43,11 +43,23 @@ const router = createBrowserRouter([
         element: <PropertyApartments />,
       },
       {
+        path: "/properties/villas",
+        element: <PropertyApartments />,
+      },
+      {
+        path: "/properties/villamates",
+        element: <PropertyApartments />,
+      },
+      {
         path: "/properties/apartments/apartments",
         element: <PropertyDetails />,
       },
       {
         path: "/properties/apartments/apartments/:apartmentId",
+        element: <PropertyDetails />,
+      },
+      {
+        path: "/package_detail/:apartmentId",
         element: <PropertyDetails />,
       },
       {
