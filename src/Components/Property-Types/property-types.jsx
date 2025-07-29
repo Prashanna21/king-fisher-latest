@@ -5,125 +5,101 @@ import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import ApartmentCard from "./ApartmentCard";
 import { useLocation } from "react-router-dom";
 import PropertiesListingComp from "../PropertiesListingComp";
-
-// Sample slides data
-const ApartmentCards = [
-  {
-    apartmentId: "luxury-city-apartment",
-    title: "Luxury City Apartment test",
-    location: "Kathmandu, Nepal",
-    price: "Rs. 45,000",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: "1350 sqft",
-    imageUrl: "/gallery/bg.jpg",
-  },
-  {
-    apartmentId: "modern-villa",
-    title: "Modern Villa",
-    location: "Kathmandu, Nepal",
-    price: "Rs. 75,000",
-    bedrooms: 4,
-    bathrooms: 3,
-    size: "2000 sqft",
-    imageUrl: "/gallery/bg2.jpg",
-  },
-  {
-    apartmentId: "cozy-studio-apartment",
-    title: "Cozy Studio Apartment",
-
-    location: "Kathmandu, Nepal",
-    price: "Rs. 30,000",
-    bedrooms: 1,
-    bathrooms: 1,
-    size: "800 sqft",
-    imageUrl: "/gallery/img1.jpg",
-  },
-];
-
-const VillaCards = [
-  {
-    apartmentId: "luxury-beach-villa",
-    title: "Luxury Beach Villa",
-    location: "Dubai Marina, Dubai",
-    price: "From AED 3,500,000",
-    bedrooms: 5,
-    bathrooms: 4,
-    size: "3500 sqft",
-    imageUrl: "/gallery/img3.jpg",
-  },
-  {
-    apartmentId: "modern-family-villa",
-    title: "Modern Family Villa",
-    location: "Palm Jumeirah, Dubai",
-    price: "From AED 2,800,000",
-    bedrooms: 4,
-    bathrooms: 3,
-    size: "2800 sqft",
-    imageUrl: "/gallery/img4.jpg",
-  },
-  {
-    apartmentId: "elegant-townhouse",
-    title: "Elegant Townhouse",
-    location: "Downtown Dubai, Dubai",
-    price: "From AED 2,200,000",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: "2000 sqft",
-    imageUrl: "/gallery/img5.jpg",
-  },
-];
-
-const VillamateCards = [
-  {
-    apartmentId: "premium-villamate",
-    title: "Premium Villamate",
-    location: "Dubai Hills Estate, Dubai",
-    price: "From AED 1,800,000",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: "1800 sqft",
-    imageUrl: "/gallery/img6.jpg",
-  },
-  {
-    apartmentId: "garden-villamate",
-    title: "Garden Villamate",
-    location: "Emirates Hills, Dubai",
-    price: "From AED 1,600,000",
-    bedrooms: 2,
-    bathrooms: 2,
-    size: "1500 sqft",
-    imageUrl: "/gallery/img7.jpg",
-  },
-  {
-    apartmentId: "modern-villamate",
-    title: "Modern Villamate",
-    location: "Jumeirah Golf Estates, Dubai",
-    price: "From AED 1,900,000",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: "1700 sqft",
-    imageUrl: "/gallery/img8.jpg",
-  },
-];
+import api from "../../services/api";
 
 const PropertyTypes = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  // Determine which property data to use based on current route
-  const getPropertyData = () => {
-    if (location.pathname.includes("/villas")) {
-      return VillaCards;
-    } else if (location.pathname.includes("/villamates")) {
-      return VillamateCards;
-    } else {
-      return ApartmentCards; // Default to apartments
-    }
-  };
+  // Fetch properties from backend based on route
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        setLoading(true);
+        console.log("🔍 Starting to fetch properties...");
+        console.log("📍 Current route:", location.pathname);
+        console.log("🌐 API URL:", import.meta.env.VITE_API_URL);
+        
+        // Test the basic endpoint first
+        const endpoint = "/properties/active";
+        
+        console.log("🌐 Fetching from endpoint:", endpoint);
+        const response = await api.get(endpoint);
+        console.log("✅ API Response received:", response.data);
+        
+        if (response.data.success) {
+          console.log("📊 Properties data:", response.data.data);
+          console.log("📊 Number of properties:", response.data.data?.length || 0);
+          
+          // Filter properties based on route if needed
+          let filteredProperties = response.data.data;
+          
+          // If you have property type filtering on backend, you can uncomment this:
+          // if (location.pathname.includes("/villas")) {
+          //   filteredProperties = response.data.data.filter(p => p.propertyType?.name?.toLowerCase().includes('villa'));
+          // } else if (location.pathname.includes("/villamates")) {
+          //   filteredProperties = response.data.data.filter(p => p.propertyType?.name?.toLowerCase().includes('villamate'));
+          // } else {
+          //   filteredProperties = response.data.data.filter(p => p.propertyType?.name?.toLowerCase().includes('apartment'));
+          // }
+          
+          console.log("🔧 Filtered properties:", filteredProperties);
+          console.log("🔧 Number of filtered properties:", filteredProperties?.length || 0);
+          
+          // Transform backend data to match the expected format
+          const transformedProperties = filteredProperties.map((property, index) => {
+            const transformed = {
+              apartmentId: property._id || `property-${index}`,
+              title: property.name || property.title || "Property",
+              location: property.location || "Dubai, UAE",
+              price: property.price ? `From AED ${property.price.toLocaleString()}` : "Price on request",
+              bedrooms: property.bedrooms || property.beds || 1, // default to 1 if not present
+              bathrooms: property.bathrooms || property.baths || 1, // default to 1 if not present
+              size: property.propertySize ? `${property.propertySize} sqft` : (property.area || property.sqft ? `${property.area || property.sqft} sqft` : "N/A"),
+              imageUrl: property.mainImage || property.image || "/gallery/newimg1.jpg",
+              _id: property._id,
+              image: property.mainImage || property.image || "/gallery/newimg1.jpg",
+              tag: ["Luxury", "For Living"],
+            };
+            console.log(`🏠 Property ${index}:`, transformed);
+            return transformed;
+          });
+          
+          console.log("🎯 Final transformed properties:", transformedProperties);
+          console.log("🎯 Number of transformed properties:", transformedProperties?.length || 0);
+          setProperties(transformedProperties);
+        } else {
+          console.log("❌ API returned success: false, using fallback data");
+          console.log("❌ API response:", response.data);
+          setProperties(getFallbackData());
+        }
+      } catch (error) {
+        console.error("💥 Error fetching properties:", error);
+        console.error("💥 Error details:", {
+          message: error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+          config: error.config
+        });
+        console.log("🔄 Using fallback data due to API error");
+        setProperties(getFallbackData());
+      } finally {
+        setLoading(false);
+        console.log("🏁 Finished loading properties");
+      }
+    };
 
-  const currentPropertyData = getPropertyData();
+    fetchProperties();
+  }, [location.pathname]);
+
+  // Fallback static data
+  const getFallbackData = () => {
+    // No fallback, only backend data should be shown
+    return [];
+  };
 
   // Get page title based on route
   const getPageTitle = () => {
@@ -236,35 +212,47 @@ const PropertyTypes = () => {
             />
           ))}
         </div>
-        {/* Apartment Cards */}
       </div>
-      <div className=" w-full max-w-7xl px-4 mx-auto mt-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
-          {currentPropertyData.map((card, index) => (
-            // <ApartmentCard
-            //   key={index}
-            //   apartmentId={card.apartmentId}
-            //   title={card.title}
-            //   location={card.location}
-            //   price={card.price}
-            //   bedrooms={card.bedrooms}
-            //   bathrooms={card.bathrooms}
-            //   size={card.size}
-            //   imageUrl={card.imageUrl}
-            // />
 
-            <PropertiesListingComp
-              key={index}
-              link={`/package_detail/${card.title
-                .toLowerCase()
-                .replace(/\s+/g, "-")
-                .replace(/[^a-z0-9-]/g, "")}`}
-              item={{ image: card.imageUrl, ...card }}
-            />
-          ))}
+      {/* Property Cards */}
+      <div className="w-full max-w-7xl px-4 mx-auto mt-10">
+        {/* Debug Section - Remove this after fixing */}
+        <div className="mb-6 p-4 bg-yellow-100 border border-yellow-400 rounded-lg">
+          <h3 className="text-lg font-bold text-yellow-800 mb-2">🔍 Debug Info:</h3>
+          <p className="text-sm text-yellow-700">Route: {location.pathname}</p>
+          <p className="text-sm text-yellow-700">Loading: {loading ? "Yes" : "No"}</p>
+          <p className="text-sm text-yellow-700">Properties Count: {properties.length}</p>
+          <p className="text-sm text-yellow-700">API URL: {import.meta.env.VITE_API_URL}</p>
+          {properties.length > 0 && (
+            <div className="mt-2">
+              <p className="text-sm text-yellow-700 font-bold">First Property:</p>
+              <pre className="text-xs text-yellow-700 bg-yellow-50 p-2 rounded">
+                {JSON.stringify(properties[0], null, 2)}
+              </pre>
+            </div>
+          )}
         </div>
+        
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#F6BC6D]"></div>
+          </div>
+        ) : properties.length === 0 ? (
+          <div className="text-center text-gray-500 py-20 text-xl font-semibold">No properties found.</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
+            {properties.map((card, index) => (
+              <PropertiesListingComp
+                key={card._id || index}
+                link={`/properties/${card._id}`}
+                item={{ image: card.imageUrl, ...card }}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
 };
+
 export default PropertyTypes;

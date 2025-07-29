@@ -108,15 +108,6 @@ const PropertySection = () => {
 
   return (
     <section className="relative w-full px-4 md:px-4 py-12 min-h-screen">
-      {/* <h2 className="text-4xl sm:text-6xl font-bold mb-4 text-center text-[#F6BC6D] heading-font">
-        <span className="text-primary">
-          Best Properties{""}
-          <span className="text-white">
-            Just <br /> Designed
-          </span>{" "}
-          for You
-        </span>
-      </h2> */}
       <div
         className="absolute inset-0 bg-repeat bg-[length:auto] z-0"
         style={{ backgroundImage: "url('/bg-texture.png')" }}
@@ -151,15 +142,6 @@ const PropertySection = () => {
 
       <div className="flex justify-center items-center text-primary mt-6 mb-8">
         <div className="flex justify-center items-center gap-2 cursor-pointer">
-          {/* <div className="text-xl">View All Properties</div>
-
-          <div className=" rounded-full h-10 w-10 flex items-center justify-center bg-[#F6BC6D]">
-            <ArrowRight
-              className={`transition-transform z-20 rotate-320 duration-300 text-[#1b1b3a]`}
-              size={20}
-            />
-          </div> */}
-
           <Link to="properties/apartments" className="flex gap-3 items-center">
             <div
               className="flex items-center rounded-full cursor-pointer relative overflow-hidden"

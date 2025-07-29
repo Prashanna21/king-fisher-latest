@@ -525,7 +525,7 @@
 // };
 
 // export default IconicProperties;
-import { Bath, BedDouble, ArrowLeft, ArrowRight } from "lucide-react";
+import { Bath, BedDouble, ArrowLeft, ArrowRight, MapPin } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import api from "../../services/api";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -533,6 +533,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Link } from "react-router-dom";
 
 const IconicProperties = () => {
   const [properties, setProperties] = useState([]);
@@ -600,43 +601,52 @@ const IconicProperties = () => {
           >
             {properties.map((p, idx) => (
               <SwiperSlide key={p._id ?? idx}>
-                <div
-                  className="group rounded-xl transition hover:shadow-lg bg-white overflow-hidden"
-                  style={{ height: "520px" }}
-                >
-                  <div className="relative">
-                    <img
-                      src={p.mainImage}
-                      alt={p.name}
-                      className="w-full h-[400px] object-cover"
-                      onError={(e) => {
-                        e.currentTarget.src =
-                          "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?auto=format&fit=crop&w=1170&q=80";
-                      }}
-                    />
-                  </div>
-                  <div className="flex flex-col justify-between p-4 bg-[#0B1735] h-[120px]">
-                    <div className="flex justify-between mb-3">
-                      <h3 className="text-xl font-semibold text-white">
-                        $ 500,000
-                      </h3>
-                      <button className="text-sm bg-[#F6BC6D] cursor-pointer text-[#092b80] px-4 py-1.5 rounded-[8px]">
-                        View Details
-                      </button>
+                <Link to={`/properties/${p._id}`}>
+                  <div
+                    className="group rounded-xl transition hover:shadow-lg bg-white overflow-hidden cursor-pointer"
+                    style={{ height: "520px" }}
+                  >
+                    <div className="relative">
+                      <img
+                        src={p.mainImage}
+                        alt={p.name}
+                        className="w-full h-[400px] object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?auto=format&fit=crop&w=1170&q=80";
+                        }}
+                      />
+                      {p.featured && (
+                        <div className="absolute top-4 left-4 bg-amber-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                          FEATURED
+                        </div>
+                      )}
                     </div>
-                    <div className="border rounded-sm px-5 p-1 flex justify-around items-center text-sm h-[41px] text-zinc-400">
-                      <p className="flex items-center gap-2">
-                        <BedDouble size={16} /> <span>2 Bedrooms</span>
-                      </p>
-                      <div className="w-px h-10 border-l mx-2" />
-                      <p className="flex items-center gap-2">
-                        <Bath size={16} /> <span>1 Bath</span>
-                      </p>
-                      <div className="w-px h-10 border-l mx-2" />
-                      <p>1000 sqft</p>
+                    <div className="flex flex-col justify-between p-4 bg-[#0B1735] h-[120px]">
+                      <div className="flex justify-between mb-3">
+                        <h3 className="text-xl font-semibold text-white">
+                          {p.price ? `AED ${p.price.toLocaleString()}` : "Price on request"}
+                        </h3>
+                        <button className="text-sm bg-[#F6BC6D] cursor-pointer text-[#092b80] px-4 py-1.5 rounded-[8px]">
+                          View Details
+                        </button>
+                      </div>
+                      <div className="border rounded-sm px-5 p-1 flex justify-around items-center text-sm h-[41px] text-zinc-400">
+                        <p className="flex items-center gap-2">
+                          <BedDouble size={16} /> 
+                          <span>{p.beds || p.bedrooms || 0} Bed</span>
+                        </p>
+                        <div className="w-px h-10 border-l mx-2" />
+                        <p className="flex items-center gap-2">
+                          <Bath size={16} /> 
+                          <span>{p.baths || p.bathrooms || 0} Bath</span>
+                        </p>
+                        <div className="w-px h-10 border-l mx-2" />
+                        <p>{p.area || p.sqft ? `${p.area || p.sqft} sqft` : "N/A"}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Log environment variables for debugging
-// console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
+console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
 
 // Create axios instance with base URL from Vite environment variables
 const api = axios.create({

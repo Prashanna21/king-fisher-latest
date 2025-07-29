@@ -1,42 +1,95 @@
-import React, { useState } from "react";
-import { Phone, MessageCircle, ArrowRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Phone, MessageCircle, ArrowRight, Loader } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import { properties } from "../../data/properties";
+import api from "../../services/api";
 
 const PropertyDetails = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isWhatsAppHovered, setIsWhatsAppHovered] = useState(false);
+  const [property, setProperty] = useState(null);
+  const [loading, setLoading] = useState(true);
   
-  // Get the apartment ID from URL params
+  // Get the property ID from URL params
   const { apartmentId } = useParams();
   
-  // Ensure properties array exists and has items
-  const safeProperties = properties && Array.isArray(properties) && properties.length > 0 ? properties : [];
-  
-  // Find the property from the properties data with comprehensive error handling
-  const currentProperty = apartmentId && safeProperties.length > 0
-    ? safeProperties.find(prop => {
-        try {
-          return prop && prop.id && prop.id.toString() === apartmentId;
-        } catch (error) {
-          console.error('Error finding property:', error);
-          return false;
+  // Fetch property data from backend
+  useEffect(() => {
+    const fetchProperty = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get(`/properties/${apartmentId}`);
+        if (response.data.success) {
+          setProperty(response.data.data);
+        } else {
+          // Fallback to default property if not found
+          setProperty({
+            _id: apartmentId,
+            name: "Property Not Found",
+            propertyType: { name: "Property" },
+            price: 0,
+            location: "Location Not Available",
+            beds: 0,
+            baths: 0,
+            area: 0,
+            mainImage: "/gallery/img1.jpg",
+            developer: "Unknown",
+            status: "Available",
+            description: "Property details not available."
+          });
         }
-      })
-    : null;
-  
-  // Fallback to first property if not found
-  const property = currentProperty || (safeProperties.length > 0 ? safeProperties[0] : {
-    id: 1,
-    title: "Property Not Found",
-    type: "Property",
-    price: 0,
-    location: "Location Not Available",
-    beds: 0,
-    baths: 0,
-    sqft: 0,
-    image: "/gallery/img1.jpg"
-  });
+      } catch (error) {
+        console.error('Error fetching property:', error);
+        // Fallback to default property if API fails
+        setProperty({
+          _id: apartmentId,
+          name: "Property Not Found",
+          propertyType: { name: "Property" },
+          price: 0,
+          location: "Location Not Available",
+          beds: 0,
+          baths: 0,
+          area: 0,
+          mainImage: "/gallery/img1.jpg",
+          developer: "Unknown",
+          status: "Available",
+          description: "Property details not available."
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (apartmentId) {
+      fetchProperty();
+    }
+  }, [apartmentId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0E1C41] flex items-center justify-center">
+        <div className="text-center">
+          <Loader className="animate-spin w-12 h-12 text-[#F6BC6D] mx-auto mb-4" />
+          <p className="text-white text-lg">Loading property details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!property) {
+    return (
+      <div className="min-h-screen bg-[#0E1C41] flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-white text-lg">Property not found</p>
+          <Link 
+            to="/properties"
+            className="mt-4 inline-block bg-[#F6BC6D] text-[#1b1b3a] px-6 py-3 rounded-full hover:bg-[#F6BC6D]/80 transition-all duration-300"
+          >
+            Back to Properties
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0E1C41]">
@@ -45,16 +98,19 @@ const PropertyDetails = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src={property.image}
-            alt={property.title}
+            src={property.mainImage || property.image || "/gallery/img1.jpg"}
+            alt={property.name}
             className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.src = "/gallery/img1.jpg";
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0E1C41]/90 via-[#0E1C41]/50 to-transparent" />
         </div>
 
         {/* Back Button */}
         <Link 
-          to="/properties/apartments"
+          to="/properties"
           className="absolute top-8 left-8 bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full hover:bg-white/30 transition-all duration-300 z-20"
         >
           ← Back to Properties
@@ -64,13 +120,15 @@ const PropertyDetails = () => {
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="text-center text-white px-4 max-w-4xl">
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              {property.title}
+              {property.name}
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 mb-8">
-              {property.type || "Premium Property"}
+              {property.propertyType?.name || "Premium Property"}
             </p>
             <div className="flex items-center justify-center gap-4 text-white">
-              <span className="text-3xl font-bold">${property.price.toLocaleString()}</span>
+              <span className="text-3xl font-bold">
+                {property.price ? `AED ${property.price.toLocaleString()}` : "Price on request"}
+              </span>
               <span className="text-gray-300">•</span>
               <span className="text-xl">{property.location}</span>
             </div>
@@ -88,13 +146,15 @@ const PropertyDetails = () => {
               {/* Price */}
               <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-[#F6BC6D]/20">
                 <h3 className="text-gray-300 text-sm mb-2">Price</h3>
-                <p className="text-3xl font-bold text-white">${property.price.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-white">
+                  {property.price ? `AED ${property.price.toLocaleString()}` : "On request"}
+                </p>
               </div>
 
               {/* Property Type */}
               <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-[#F6BC6D]/20">
                 <h3 className="text-gray-300 text-sm mb-2">Type</h3>
-                <p className="text-3xl font-bold text-white">{property.type || "Property"}</p>
+                <p className="text-3xl font-bold text-white">{property.propertyType?.name || "Property"}</p>
               </div>
 
               {/* Location */}
@@ -109,42 +169,61 @@ const PropertyDetails = () => {
               {/* Bedrooms */}
               <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-[#F6BC6D]/20">
                 <h3 className="text-gray-300 text-sm mb-2">Bedrooms</h3>
-                <p className="text-3xl font-bold text-white">{property.beds}</p>
+                <p className="text-3xl font-bold text-white">{property.beds || property.bedrooms || 0}</p>
               </div>
 
               {/* Bathrooms */}
               <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-[#F6BC6D]/20">
                 <h3 className="text-gray-300 text-sm mb-2">Bathrooms</h3>
-                <p className="text-3xl font-bold text-white">{property.baths}</p>
+                <p className="text-3xl font-bold text-white">{property.baths || property.bathrooms || 0}</p>
               </div>
 
               {/* Size */}
               <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-[#F6BC6D]/20">
                 <h3 className="text-gray-300 text-sm mb-2">Size</h3>
-                <p className="text-3xl font-bold text-white">{property.sqft} sqft</p>
+                <p className="text-3xl font-bold text-white">
+                  {property.area || property.sqft ? `${property.area || property.sqft} sqft` : "N/A"}
+                </p>
               </div>
             </div>
+
+            {/* Developer and Status */}
+            {property.developer && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Developer */}
+                <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-[#F6BC6D]/20">
+                  <h3 className="text-gray-300 text-sm mb-2">Developer</h3>
+                  <p className="text-2xl font-bold text-white">{property.developer}</p>
+                </div>
+
+                {/* Status */}
+                <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-[#F6BC6D]/20">
+                  <h3 className="text-gray-300 text-sm mb-2">Status</h3>
+                  <p className="text-2xl font-bold text-white">{property.status || "Available"}</p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Column - Description and CTA */}
           <div className="space-y-8">
             {/* Title */}
             <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-              {property.title}
+              {property.name}
             </h2>
 
             {/* Description */}
             <p className="text-lg text-gray-300 leading-relaxed">
-              Discover this exceptional {property.type?.toLowerCase() || "property"} located in the prestigious {property.location} area. 
-              This stunning property features {property.beds} spacious bedrooms and {property.baths} elegant bathrooms, 
-              offering {property.sqft} square feet of luxurious living space. Perfect for families seeking comfort and style 
-              in one of the most sought-after locations.
+              {property.description || `Discover this exceptional ${property.propertyType?.name?.toLowerCase() || "property"} located in the prestigious ${property.location} area. 
+              This stunning property features ${property.beds || property.bedrooms || 0} spacious bedrooms and ${property.baths || property.bathrooms || 0} elegant bathrooms, 
+              offering ${property.area || property.sqft || "ample"} square feet of luxurious living space. Perfect for families seeking comfort and style 
+              in one of the most sought-after locations.`}
             </p>
 
             {/* CTA Section */}
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
               {/* Book Now Button */}
-              <Link to="properties/apartments" className="flex gap-3 items-center">
+              <Link to="/properties" className="flex gap-3 items-center">
                 <div
                   className="flex items-center rounded-full cursor-pointer relative overflow-hidden"
                   onMouseEnter={() => setIsHovered(true)}
