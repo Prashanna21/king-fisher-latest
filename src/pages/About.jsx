@@ -50,11 +50,11 @@ export default function About() {
   };
 
   return (
-    <div>
-      <div className="relative h-screen w-full bg-[#0E1C41] text-white">
+    <div className="bg-black -mt-3">
+      <div className="relative h-screen w-full bg-[#0E1C41] text-white overflow-hidden">
         {/* Background Image with Overlay */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className=" absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('gallery/newimg2.jpg')" }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A1430] via-[#0A1430]/70 to-[#0A1430] transition-all duration-1000" />

@@ -4,12 +4,13 @@ import slides from "../../data/hero";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import ApartmentCard from "./ApartmentCard";
 import { useLocation } from "react-router-dom";
+import PropertiesListingComp from "../PropertiesListingComp";
 
 // Sample slides data
 const ApartmentCards = [
   {
     apartmentId: "luxury-city-apartment",
-    title: "Luxury City Apartment",
+    title: "Luxury City Apartment test",
     location: "Kathmandu, Nepal",
     price: "Rs. 45,000",
     bedrooms: 3,
@@ -113,9 +114,9 @@ const PropertyTypes = () => {
 
   // Determine which property data to use based on current route
   const getPropertyData = () => {
-    if (location.pathname.includes('/villas')) {
+    if (location.pathname.includes("/villas")) {
       return VillaCards;
-    } else if (location.pathname.includes('/villamates')) {
+    } else if (location.pathname.includes("/villamates")) {
       return VillamateCards;
     } else {
       return ApartmentCards; // Default to apartments
@@ -126,9 +127,9 @@ const PropertyTypes = () => {
 
   // Get page title based on route
   const getPageTitle = () => {
-    if (location.pathname.includes('/villas')) {
+    if (location.pathname.includes("/villas")) {
       return "Luxury Villas";
-    } else if (location.pathname.includes('/villamates')) {
+    } else if (location.pathname.includes("/villamates")) {
       return "Exclusive Villamates";
     } else {
       return "Premium Apartments";
@@ -238,18 +239,27 @@ const PropertyTypes = () => {
         {/* Apartment Cards */}
       </div>
       <div className=" w-full max-w-7xl px-4 mx-auto mt-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
           {currentPropertyData.map((card, index) => (
-            <ApartmentCard
+            // <ApartmentCard
+            //   key={index}
+            //   apartmentId={card.apartmentId}
+            //   title={card.title}
+            //   location={card.location}
+            //   price={card.price}
+            //   bedrooms={card.bedrooms}
+            //   bathrooms={card.bathrooms}
+            //   size={card.size}
+            //   imageUrl={card.imageUrl}
+            // />
+
+            <PropertiesListingComp
               key={index}
-              apartmentId={card.apartmentId}
-              title={card.title}
-              location={card.location}
-              price={card.price}
-              bedrooms={card.bedrooms}
-              bathrooms={card.bathrooms}
-              size={card.size}
-              imageUrl={card.imageUrl}
+              link={`/package_detail/${card.title
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^a-z0-9-]/g, "")}`}
+              item={{ image: card.imageUrl, ...card }}
             />
           ))}
         </div>

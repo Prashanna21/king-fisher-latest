@@ -3,6 +3,7 @@ import HeadingWithHighlight from "../HeadingWithHighlight";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import PropertiesListingComp from "../PropertiesListingComp";
 
 const imageData = [
   {
@@ -87,7 +88,6 @@ const buttonVariants = {
   },
 };
 
-
 const cardDescriptionVariants = {
   initial: { opacity: 0, y: 40 },
   hover: {
@@ -137,83 +137,14 @@ const PropertySection = () => {
           text="Designed for You"
           highlights={["Designed"]}
         />
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-4 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-y-6 lg:gap-4 mt-10">
           {imageData.map((item, index) => (
-            <Link to={`/package_detail/${item.apartmentId}`} key={item.id + item.title}>
-              <motion.div
-                style={{
-                  cursor: 'url("/HoverArrow.svg") 16 16, auto',
-                }}
-                className="relative group overflow-hidden h-[40vh] md:h-[50vh] lg:h-[80vh] rounded-sm "
-                custom={index}
-                initial="hidden"
-                whileInView="visible"
-                whileHover="hover"
-                viewport={{ once: true, amount: 0.3 }}
-                variants={itemVariants}
-              >
-                {/* Image */}
-                <div className="h-[82%] overflow-hidden w-full relative rounded-sm ">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/40 to-transparent transition duration-500 group-hover:from-[#203772]/70 group-hover:via-[#203772]/40" />
-
-                </div>
-
-                {/* Title and Details below the image */}
-                <div className="font-regular mt-4 md:mt-4">
-                  <h3 className={`text-2xl mb-2 ${index === 2 ? 'text-white' : 'text-[#F6BC6D]'}`}
-                    style={index === 2 ? { color: 'white' } : {}}>{item.title}</h3>
-                  <p className="text-md line-clamp-3">
-                    <span className="text-gray-300"> {item.location}</span>
-                    <br />
-                    <span>{item.price}</span>
-                  </p>
-                </div>
-
-                {/* Overlay */}
-
-                {/* Tags */}
-                {item?.tag?.length > 0 && (
-                  <div className="absolute top-5 left-5 flex gap-2 flex-wrap">
-                    {item.tag.map((tag, i) => (
-                      <div
-                        key={i + tag}
-                        className="bg-[#003560] rounded-full flex items-center px-4 py-1.5 text-sm text-[#F6BC6D]"
-                      >
-                        {tag}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Center Button */}
-                {/* <div className="absolute inset-0 z-10 hidden group-hover:flex flex-col items-center justify-center text-white text-center px-4 transition duration-300">
-                  <motion.button
-                    className="border border-[#F6BC6D] rounded-md px-6 py-2 text-sm uppercase tracking-wider hover:bg-[#F6BC6D] transition duration-300"
-                    whileHover="hover"
-                    variants={buttonVariants}
-                  >
-                    View All
-                  </motion.button>
-                </div> */}
-                {/* Bottom Bar */}
-                {/* <motion.div
-                  className="absolute block group-hover:flex  bottom-0 z-50 p-3 bg-white/20 w-full text-white bg-red-400"
-                  initial="initial"
-                  variants={cardDescriptionVariants}
-                >
-                  <h3 className="text-2xl font-bold mb-1">{item.title}</h3>
-                  <p className="text-sm line-clamp-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </p>
-                </motion.div> */}
-              </motion.div>
-            </Link>
+            <PropertiesListingComp
+              key={item.id + item.title}
+              item={item}
+              index={index}
+              link={`/package_detail/${item.apartmentId}`}
+            />
           ))}
         </div>
       </motion.div>

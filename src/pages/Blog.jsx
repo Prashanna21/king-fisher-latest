@@ -171,7 +171,7 @@ const BlogPage = () => {
         </div>
       </div> */}
 
-      <div className="relative h-screen w-full bg-[#0E1C41] text-white">
+      <div className="relative h-screen w-full bg-[#0E1C41] text-white overflow-hidden">
         {/* Background Image with Overlay */}
         <div
           className="absolute inset-0 bg-cover bg-center"
