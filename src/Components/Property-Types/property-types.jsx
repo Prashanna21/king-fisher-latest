@@ -58,7 +58,6 @@ const ApartmentCards = [
   {
     apartmentId: "cozy-studio-apartment",
     title: "Cozy Studio Apartment",
-
     location: "Kathmandu, Nepal",
     price: "Rs. 30,000",
     bedrooms: 1,
@@ -140,91 +139,15 @@ const PropertyTypes = () => {
   const [activeSubMenu, setActiveSubMenu] = useState(null);
   const location = useLocation();
 
-  // Fetch properties from backend based on route
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        setLoading(true);
-        console.log("🔍 Starting to fetch properties...");
-        console.log("📍 Current route:", location.pathname);
-        console.log("🌐 API URL:", import.meta.env.VITE_API_URL);
-        
-        // Test the basic endpoint first
-        const endpoint = "/properties/active";
-        
-        console.log("🌐 Fetching from endpoint:", endpoint);
-        const response = await api.get(endpoint);
-        console.log("✅ API Response received:", response.data);
-        
-        if (response.data.success) {
-          console.log("📊 Properties data:", response.data.data);
-          console.log("📊 Number of properties:", response.data.data?.length || 0);
-          
-          // Filter properties based on route if needed
-          let filteredProperties = response.data.data;
-          
-          // If you have property type filtering on backend, you can uncomment this:
-          // if (location.pathname.includes("/villas")) {
-          //   filteredProperties = response.data.data.filter(p => p.propertyType?.name?.toLowerCase().includes('villa'));
-          // } else if (location.pathname.includes("/villamates")) {
-          //   filteredProperties = response.data.data.filter(p => p.propertyType?.name?.toLowerCase().includes('villamate'));
-          // } else {
-          //   filteredProperties = response.data.data.filter(p => p.propertyType?.name?.toLowerCase().includes('apartment'));
-          // }
-          
-          console.log("🔧 Filtered properties:", filteredProperties);
-          console.log("🔧 Number of filtered properties:", filteredProperties?.length || 0);
-          
-          // Transform backend data to match the expected format
-          const transformedProperties = filteredProperties.map((property, index) => {
-            const transformed = {
-              apartmentId: property._id || `property-${index}`,
-              title: property.name || property.title || "Property",
-              location: property.location || "Dubai, UAE",
-              price: property.price ? `From AED ${property.price.toLocaleString()}` : "Price on request",
-              bedrooms: property.bedrooms || property.beds || 1, // default to 1 if not present
-              bathrooms: property.bathrooms || property.baths || 1, // default to 1 if not present
-              size: property.propertySize ? `${property.propertySize} sqft` : (property.area || property.sqft ? `${property.area || property.sqft} sqft` : "N/A"),
-              imageUrl: property.mainImage || property.image || "/gallery/newimg1.jpg",
-              _id: property._id,
-              image: property.mainImage || property.image || "/gallery/newimg1.jpg",
-              tag: ["Luxury", "For Living"],
-            };
-            console.log(`🏠 Property ${index}:`, transformed);
-            return transformed;
-          });
-          
-          console.log("🎯 Final transformed properties:", transformedProperties);
-          console.log("🎯 Number of transformed properties:", transformedProperties?.length || 0);
-          setProperties(transformedProperties);
-        } else {
-          console.log("❌ API returned success: false, using fallback data");
-          console.log("❌ API response:", response.data);
-          setProperties(getFallbackData());
-        }
-      } catch (error) {
-        console.error("💥 Error fetching properties:", error);
-        console.error("💥 Error details:", {
-          message: error.message,
-          status: error.response?.status,
-          data: error.response?.data,
-          config: error.config
-        });
-        console.log("🔄 Using fallback data due to API error");
-        setProperties(getFallbackData());
-      } finally {
-        setLoading(false);
-        console.log("🏁 Finished loading properties");
-      }
-    };
-
-    fetchProperties();
-  }, [location.pathname]);
-
-  // Fallback static data
-  const getFallbackData = () => {
-    // No fallback, only backend data should be shown
-    return [];
+  // Get current property data based on route
+  const getCurrentPropertyData = () => {
+    if (location.pathname.includes("/villas")) {
+      return VillaCards;
+    } else if (location.pathname.includes("/villamates")) {
+      return VillamateCards;
+    } else {
+      return ApartmentCards;
+    }
   };
 
   // Get page title based on route
@@ -262,6 +185,8 @@ const PropertyTypes = () => {
       setCurrentSlide(index);
     }
   };
+
+  const currentPropertyData = getCurrentPropertyData();
 
   return (
     <>
@@ -339,7 +264,8 @@ const PropertyTypes = () => {
           ))}
         </div>
       </div>
-      <div className=" w-full max-w-7xl px-4 mx-auto mt-10">
+
+      <div className="w-full max-w-7xl px-4 mx-auto mt-10">
         <div className="flex">
           {Tabs.map((column, colIdx) => (
             <Link
@@ -360,18 +286,6 @@ const PropertyTypes = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
           {currentPropertyData.map((card, index) => (
-            // <ApartmentCard
-            //   key={index}
-            //   apartmentId={card.apartmentId}
-            //   title={card.title}
-            //   location={card.location}
-            //   price={card.price}
-            //   bedrooms={card.bedrooms}
-            //   bathrooms={card.bathrooms}
-            //   size={card.size}
-            //   imageUrl={card.imageUrl}
-            // />
-
             <PropertiesListingComp
               key={index}
               link={`/details/${card.title
